@@ -4,4 +4,4 @@
 Will upload code after finalizing the camera ready version.
 
 ### Teaser
-![](gif/l2caf.gif)
+![](https://github.com/ahmdtaha/constrained_attention_filter/blob/master/gif/l2_caf.gif)

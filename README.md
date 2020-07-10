@@ -4,4 +4,4 @@
 Will upload code after finalizing the camera ready version.
 
 ### Teaser
-![](http://www.cs.umd.edu/~ahmdtaha/gifs/l2_caf.gif)
+![](https://github.com/ahmdtaha/constrained_attention_filter/blob/master/gif/l2_caf.gif)

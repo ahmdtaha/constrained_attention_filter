@@ -17,4 +17,11 @@ The code components of L2-CAF are
 * Python 3+ [Tested on 3.7]
 * Tensorflow 1.X [Tested on 1.14]
 
+## ImageNet Pretrained Models
+I used the following
+* [DenseNet model](https://github.com/pudae/tensorflow-densenet)
+* InceptionV1
+* ResNet  
+
+
 

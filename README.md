@@ -21,7 +21,19 @@ The code components of L2-CAF are
 I used the following
 * [DenseNet model](https://github.com/pudae/tensorflow-densenet)
 * InceptionV1
-* ResNet  
+* ResNet
 
 
 
+## Release History
+* 1.0.0
+    * First commit Vanilla L2-CAF on DenseNet 12 July 2020
+    
+### TODO LIST
+* Add Fast L2-CAF
+* Add InceptionNet and ResNet support
+* Document to use the code
+
+
+## Contributing
+**It would be great if someone re-implement this in pytorch. Let me know and I will add a link to your Pytorch implementation here**

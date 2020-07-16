@@ -33,6 +33,8 @@ trunc_normal = lambda stddev: tf.truncated_normal_initializer(0.0, stddev)
 def inception_v1_base(inputs,
                       final_endpoint='Mixed_5c',
                       include_root_block=True,
+                      filter_type=None,
+                      verbose=None,
                       scope='InceptionV1'):
   """Defines the Inception V1 base architecture.
 
@@ -130,6 +132,7 @@ def inception_v1_base(inputs,
           net = tf.concat(
               axis=3, values=[branch_0, branch_1, branch_2, branch_3])
 
+
         end_points[end_point] = net
         if final_endpoint == end_point: return net, end_points
 
@@ -176,6 +179,7 @@ def inception_v1_base(inputs,
         end_points[end_point] = net
         if final_endpoint == end_point: return net, end_points
 
+        net = attention_filter.add_attention_filter(net, end_point, verbose=verbose, filter_type=filter_type)
         end_point = 'Mixed_4d'
         with tf.variable_scope(end_point):
           with tf.variable_scope('Branch_0'):
@@ -212,6 +216,7 @@ def inception_v1_base(inputs,
           net = tf.concat(
               axis=3, values=[branch_0, branch_1, branch_2, branch_3])
 
+        net = attention_filter.add_attention_filter(net, end_point, verbose=verbose, filter_type=filter_type)
         end_points[end_point] = net
         if final_endpoint == end_point: return net, end_points
 
@@ -231,6 +236,7 @@ def inception_v1_base(inputs,
           net = tf.concat(
               axis=3, values=[branch_0, branch_1, branch_2, branch_3])
 
+        net = attention_filter.add_attention_filter(net, end_point, verbose=verbose, filter_type=filter_type)
         end_points[end_point] = net
         if final_endpoint == end_point: return net, end_points
 
@@ -255,6 +261,7 @@ def inception_v1_base(inputs,
           net = tf.concat(
               axis=3, values=[branch_0, branch_1, branch_2, branch_3])
 
+        net = attention_filter.add_attention_filter(net, end_point, verbose=verbose, filter_type=filter_type)
         end_points[end_point] = net
         if final_endpoint == end_point: return net, end_points
 
@@ -274,14 +281,7 @@ def inception_v1_base(inputs,
           net = tf.concat(
               axis=3, values=[branch_0, branch_1, branch_2, branch_3])
 
-        # print(net)
-        # atten_var = tf.get_variable("atten_" + end_point, [net.shape[1], net.shape[2], 1], dtype=tf.float32,
-        #                             initializer=tf.contrib.layers.xavier_initializer())
-        # print(atten_var)
-        # atten_var_norm = atten_var / tf.norm(atten_var)
-        # atten_var_gate = tf.Variable(False, name="gate_" + end_point)
-        # net = tf.cond(atten_var_gate, lambda: tf.multiply(atten_var_norm, net), lambda: tf.identity(net))
-        net = attention_filter.add_attention_filter(net,end_point,verbose=True)
+        net = attention_filter.add_attention_filter(net,end_point,verbose=verbose,filter_type=filter_type)
         end_points[end_point] = net
         if final_endpoint == end_point: return net, end_points
     raise ValueError('Unknown final endpoint %s' % final_endpoint)
@@ -295,6 +295,8 @@ def inception_v1(inputs,
                  spatial_squeeze=True,
                  reuse=None,
                  scope='InceptionV1',
+                 filter_type=None,
+                 verbose=None,
                  global_pool=False):
   """Defines the Inception V1 architecture.
 
@@ -336,7 +338,7 @@ def inception_v1(inputs,
   with tf.variable_scope(scope, 'InceptionV1', [inputs], reuse=reuse) as scope:
     with slim.arg_scope([slim.batch_norm, slim.dropout],
                         is_training=is_training):
-      net, end_points = inception_v1_base(inputs, scope=scope)
+      net, end_points = inception_v1_base(inputs, scope=scope,filter_type=filter_type,verbose=verbose)
 
 
 
@@ -424,7 +426,11 @@ class InceptionV1:
                  ):
         self.cfg = cfg
         batch_size = None
+        filter_type = cfg.filter_type
+        verbose = cfg.print_filter_name
+
         num_classes = cfg.num_classes
+
         if lbls_ph is not None:
             self.gt_lbls = tf.reshape(lbls_ph, [-1, num_classes])
         else:
@@ -463,11 +469,12 @@ class InceptionV1:
 
             _, self.val_end_points = inception_v1(aug_imgs, num_classes,
                                              dropout_keep_prob=dropout_keep_prob,
-                                             is_training=False,reuse=None, scope=scope)
+                                             is_training=False,reuse=None, scope=scope,
+                                             filter_type=filter_type,verbose=verbose)
 
 
         def  cal_metrics(end_points):
-            gt = tf.argmax(self.gt_lbls, 1);
+            gt = tf.argmax(self.gt_lbls, 1)
             logits = tf.reshape(end_points['Logits'], [-1, num_classes])
             pre_logits = end_points['Mixed_5c']
 

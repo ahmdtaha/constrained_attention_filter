@@ -7,10 +7,10 @@ import tensorflow as tf
 from pydoc import locate
 import constants as const
 from nets import nn_utils
-from utils import heatmap_utils
 from utils import os_utils
 from utils import tf_utils
 from utils import log_utils
+from utils import heatmap_utils
 from nets import attention_filter
 from config.base_config import BaseConfig
 from utils.imagenet_lbls import imagenet_lbls
@@ -18,6 +18,7 @@ from utils.imagenet_lbls import imagenet_lbls
 def normalize_filter(filter_type,_atten_var,filter_height,filter_width):
     if filter_type == 'l2norm':
         frame_mask = np.reshape(np.abs(_atten_var), (filter_height, filter_width))
+        # frame_mask = np.reshape(_atten_var, (filter_height, filter_width))
         frame_mask = frame_mask / np.linalg.norm(frame_mask)
     elif filter_type == 'softmax':
         frame_mask = tf.nn.softmax(np.reshape(_atten_var, [1, -1])).eval()
@@ -145,7 +146,7 @@ def main(cfg):
         open_gate = tf.assign(tf_gate_atten_var, True)
         random_init = tf.assign(tf_atten_var, rand_initilzalier)
         lr_reset = tf.assign(global_step, 0)
-
+        MAX_INT = np.iinfo(np.int16).max
         # output_dir = cfg.output_dir
         for top_i in top_k:
             # top_i  = 207  # To control which top_i to work on directly
@@ -153,6 +154,7 @@ def main(cfg):
             # sess.run(open_gate)
 
             iteration = 0
+            prev_loss = MAX_INT
             event_gif_images = []
             per_class_maximization = np.ones((1,cfg.num_classes))
             per_class_maximization[0,top_i] = -1
@@ -176,27 +178,32 @@ def main(cfg):
                 #     {per_class_logits_ph: np.ones((1, cfg.num_classes)), logits_ph: ground_logits}
                 #         )
 
-                if cfg.save_gif and iteration % 10 == 0:
+                if iteration % 50 == 0:
                     print('Iter {0:2d}: {1:.5f} Top {2:3d} {3} logit value {4:.2f}'.format(iteration, _loss,top_i,imagenet_lbls[top_i],wrong_logits[0,top_i]))
                     # print(np.round(np.reshape(_atten_var,(7,7)),2))
+                    if cfg.save_gif:
+                        frame_mask = normalize_filter(filter_type,_atten_var,tf_atten_var.shape[0], tf_atten_var.shape[1])
+                        if class_specific:
+                            # imageio.imwrite(output_dir + img_name +'_msk_cls_{}_{}.png'.format(top_i,filter_type), frame_mask)
+                            heatmap_utils.save_heatmap(frame_mask,save=output_dir + img_name +'_msk_cls_{}_{}.png'.format(top_i,filter_type))
+                            plt = heatmap_utils.apply_heatmap(test_img / 255.0, frame_mask, alpha=0.7,
+                                                    save=output_dir + img_name +'_cls_{}_{}.png'.format(top_i,filter_type), axis='off', cmap='bwr')
+                        else:
+                            plt = heatmap_utils.apply_heatmap(test_img / 255.0, frame_mask, alpha=0.7,
+                                                    save=output_dir + img_name +'_{}.png'.format(filter_type), axis='off', cmap='bwr')
 
-                    frame_mask = normalize_filter(filter_type,_atten_var,tf_atten_var.shape[0], tf_atten_var.shape[1])
-                    if class_specific:
-                        # imageio.imwrite(output_dir + img_name +'_msk_cls_{}_{}.png'.format(top_i,filter_type), frame_mask)
-                        heatmap_utils.save_heatmap(frame_mask,save=output_dir + img_name +'_msk_cls_{}_{}.png'.format(top_i,filter_type))
-                        plt = heatmap_utils.apply_heatmap(test_img / 255.0, frame_mask, alpha=0.7,
-                                                save=output_dir + img_name +'_cls_{}_{}.png'.format(top_i,filter_type), axis='off', cmap='bwr')
-                    else:
-                        plt = heatmap_utils.apply_heatmap(test_img / 255.0, frame_mask, alpha=0.7,
-                                                save=output_dir + img_name +'_{}.png'.format(filter_type), axis='off', cmap='bwr')
+                        fig = plt.gcf()
+                        data = np.fromstring(fig.canvas.tostring_rgb(), dtype=np.uint8, sep='')
+                        w, h = fig.canvas.get_width_height()
+                        data_img = data.reshape((h, w, 3))
+                        event_gif_images.append(data_img)
+                        # imageio.imwrite(dump_dir + '{}_test.jpg'.format(iteration),data_img)
+                        plt.close()
 
-                    fig = plt.gcf()
-                    data = np.fromstring(fig.canvas.tostring_rgb(), dtype=np.uint8, sep='')
-                    w, h = fig.canvas.get_width_height()
-                    data_img = data.reshape((h, w, 3))
-                    event_gif_images.append(data_img)
-                    # imageio.imwrite(dump_dir + '{}_test.jpg'.format(iteration),data_img)
-                    plt.close()
+                    if np.abs(_loss - prev_loss) < 10e-5:
+                        break
+
+                    prev_loss = _loss
 
                 iteration+=1
 
@@ -261,7 +268,7 @@ def main(cfg):
 
 if __name__ == '__main__':
     arg_db_name = 'imagenet'
-    arg_net = 'densenet161'
+    arg_net = 'inceptionv1' #[densenet161,inceptionv1]
     arg_ckpt = 'test_{}_{}'.format(arg_db_name, arg_net)
     args = [
         '--gpu', '0',
@@ -271,11 +278,11 @@ if __name__ == '__main__':
         # '--print_filter_name',
         '--net', arg_net,
         '--learning_rate','0.5', # Rule of thumb bigger attention map need bigger learning rate and vice versa
-        '--max_iters','300',
+        '--max_iters','400',
         '--filter_type','l2norm',
         '--replicate_net_at','',
-        '--atten_filter_position','dense_block4/{}_conv_block24:0'
-        # '--atten_filter_position','InceptionV1/{}_Mixed_5c:0'
+        # '--atten_filter_position','dense_block4/{}_conv_block24:0' # last conv DenseNet
+        '--atten_filter_position','InceptionV1/{}_Mixed_5c:0' # last conv InceptionV1
         # '--atten_filter_position','dense_block3/{}_conv_block36:0'
     ]
     cfg = BaseConfig().parse(args)

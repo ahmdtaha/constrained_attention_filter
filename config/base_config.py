@@ -23,8 +23,8 @@ class BaseConfig:
                                  help='where to save experiment log and model')
         self.parser.add_argument('--replicate_net_at', type=str, required=True,
                                  help='Which Layer to replicate the network at?')
-        self.parser.add_argument('--net', type=str, default='resnet50',
-                                 help='Which networks? resnet50, inc4,densenet161')
+        self.parser.add_argument('--net', type=str, default='resnet50',choices=['densenet161','inceptionv1'],
+                                 help='Which networks to use? e.g., densenet161')
         self.parser.add_argument('--max_iters', type=int, default=40000,
                                  help='Number of parallel threads')
         self.parser.add_argument('--atten_filter_position', type=str,

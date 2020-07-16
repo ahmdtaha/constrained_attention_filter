@@ -31,7 +31,7 @@ I used the following
 ## Release History
 * 1.0.0
     * First commit Vanilla L2-CAF on DenseNet 12 July 2020
-    * Add support for InceptionV1
+    * Add support for InceptionV1 15 July 2020
     
 ### TODO LIST
 * Add Fast L2-CAF on DenseNet
@@ -44,6 +44,6 @@ I used the following
 
 
 ### MISC Notes
-* We do not write localization evaluation code. We used the matlab code released by [CAM](https://github.com/zhoubolei/CAM) in Tables 1  and 3.
+* We did not write localization evaluation code. We used the matlab code released by [CAM](https://github.com/zhoubolei/CAM) in Tables 1  and 3.
 We used the python code released by [ADL](https://github.com/junsukchoe/ADL) in Table 2. 
 Feel free to evaluate L2-CAF localization with other evaluation codes.

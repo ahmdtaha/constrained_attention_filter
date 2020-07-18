@@ -23,8 +23,11 @@ class BaseConfig:
                                  help='where to save experiment log and model')
         self.parser.add_argument('--replicate_net_at', type=str, required=True,
                                  help='Which Layer to replicate the network at?')
-        self.parser.add_argument('--net', type=str, default='resnet50',choices=['densenet161','inceptionv1'],
+        self.parser.add_argument('--net', type=str, default='resnet50',choices=['densenet161','inceptionv1','resnet50'],
                                  help='Which networks to use? e.g., densenet161')
+        self.parser.add_argument('--caf_variant', type=str, default='cls_oblivious',
+                                 choices=['cls_oblivious', 'cls_specific'],
+                                 help='Whether to optimize the class oblivious or class specific problem?')
         self.parser.add_argument('--max_iters', type=int, default=40000,
                                  help='Number of parallel threads')
         self.parser.add_argument('--atten_filter_position', type=str,
@@ -112,38 +115,16 @@ class BaseConfig:
             sub_network_name = 'nets.sub_resnet_v2.ResNet50'
             imagenet_weights_filepath = pretrained_weights_dir + 'resnet_v2_50/resnet_v2_50.ckpt'
             preprocess_func = 'inception_v1'
-        elif model == 'resnet50_v1':
-            network_name = 'nets.resnet_v1.ResNet50'
-            imagenet_weights_filepath = pretrained_weights_dir + 'resnet_v1_50/resnet_v1_50.ckpt'
-            preprocess_func = 'vgg'
         elif model == 'densenet161':
             network_name = 'nets.densenet161.DenseNet161'
             sub_network_name = 'nets.sub_densenet161.DenseNet161'
             imagenet_weights_filepath = pretrained_weights_dir + 'tf-densenet161/tf-densenet161.ckpt'
             preprocess_func = 'densenet'
-
-        elif model == 'inc4':
-            network_name = 'nets.inception_v4.InceptionV4'
-            imagenet_weights_filepath = pretrained_weights_dir + 'inception_v4/inception_v4.ckpt'
-            preprocess_func = 'inception_v1'
-
         elif model == 'inceptionv1':
             network_name = 'nets.inception_v1.InceptionV1'
             sub_network_name = 'nets.sub_inception_v1.InceptionV1'
             imagenet_weights_filepath = pretrained_weights_dir + 'inception_v1/inception_v1.ckpt'
             preprocess_func = 'inception_v1'
-
-
-        elif model == 'inc3':
-            network_name = 'nets.inception_v3.InceptionV3'
-            imagenet_weights_filepath = pretrained_weights_dir + 'inception_v3.ckpt'
-            preprocess_func = 'inception_v1'
-
-        elif model == 'mobile':
-            network_name = 'nets.mobilenet_v1.MobileV1'
-            imagenet_weights_filepath = pretrained_weights_dir + 'mobilenet_v1_1.0_224/mobilenet_v1_1.0_224.ckpt'
-            preprocess_func = 'inception_v1'
-            sub_network_name = 'nets.sub_mobilenet_v1.MobileV1'
         elif model == 'vgg16':
             network_name = 'nets.vgg.VGG'
             sub_network_name = 'nets.sub_vgg.VGG'

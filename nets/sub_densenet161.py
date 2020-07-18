@@ -338,8 +338,8 @@ class DenseNet161:
             supervised_correct_prediction_cast = tf.cast(supervised_correct_prediction, tf.float32)
             accuracy = tf.reduce_mean(supervised_correct_prediction_cast)
             confusion_mat = tf.confusion_matrix(gt, class_prediction, num_classes=num_classes)
-            _, accumulated_accuracy = tf.metrics.accuracy(gt, class_prediction)
-            _, per_class_acc_acc = tf.metrics.mean_per_class_accuracy(gt, class_prediction, num_classes=num_classes)
+            _, accumulated_accuracy = tf.compat.v1.metrics.accuracy(gt, class_prediction)
+            _, per_class_acc_acc = tf.compat.v1.metrics.mean_per_class_accuracy(gt, class_prediction, num_classes=num_classes)
             per_class_acc_acc = tf.reduce_mean(per_class_acc_acc)
 
             class_prediction = tf.nn.softmax(logits)

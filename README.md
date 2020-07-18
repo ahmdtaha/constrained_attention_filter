@@ -32,10 +32,11 @@ I used the following
 * 1.0.0
     * First commit Vanilla L2-CAF on DenseNet 12 July 2020
     * Add support for InceptionV1
+    * Add support for ResNet50V2
     
 ### TODO LIST
 * Add Fast L2-CAF on DenseNet
-* Add InceptionNet and ResNet support
+* ~~Add InceptionNet and ResNet support~~
 * Document to use the code
 * Document extra technical tricks not mentioned in the paper 
 

@@ -38,8 +38,10 @@ def add_attention_filter(net,end_point,verbose=False,filter_type=None):
                                     initializer=tf.initializers.zeros())
         cov = [[1.0, 0], [0, 1.0]]
         atten_var_norm = gaussian_kernel(3, mu, cov)
+    else:
+        raise NotImplementedError('Invalid filter type {}'.format(filter_type))
 
-    atten_var_gate = tf.get_variable("gate_" + end_point, initializer=False,dtype=tf.bool)
+    atten_var_gate = tf.compat.v1.get_variable("gate_" + end_point, initializer=False,dtype=tf.bool)
     if verbose:
         print(atten_var_gate)
     net = tf.cond(atten_var_gate, lambda: tf.multiply(atten_var_norm, net), lambda: tf.identity(net))

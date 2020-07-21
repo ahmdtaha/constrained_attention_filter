@@ -78,13 +78,13 @@ def _conv_block(inputs, num_filters, data_format='NHWC', scope=None, outputs_col
 
 @slim.add_arg_scope
 def _dense_block(inputs, num_layers, num_filters, growth_rate,
-                 grow_num_filters=True, scope=None, outputs_collections=None):
+                 grow_num_filters=True, scope=None, outputs_collections=None,filter_type=None,verbose=None):
 
   with tf.variable_scope(scope, 'dense_blockx', [inputs]) as sc:
     net = inputs
-    branch = 24
-    end_point = 'conv_block'+str(branch)
-    net = attention_filter.add_attention_filter(net, end_point)
+
+    end_point = 'conv_block'+str(num_layers)
+    net = attention_filter.add_attention_filter(net, end_point,verbose=verbose,filter_type=filter_type)
 
     if grow_num_filters:
         num_filters += growth_rate
@@ -120,6 +120,8 @@ def densenet(inputs,
              data_format='NHWC',
              is_training=True,
              reuse=None,
+             filter_type=None,
+             verbose=None,
              scope=None):
   assert reduction is not None
   assert growth_rate is not None
@@ -132,7 +134,7 @@ def densenet(inputs,
   if data_format == 'NCHW':
     inputs = tf.transpose(inputs, [0, 3, 1, 2])
 
-  with tf.variable_scope(scope, 'densenetxxx', [inputs, num_classes],
+  with tf.variable_scope(scope, 'densenet_sub', [inputs, num_classes],
                          reuse=reuse) as sc:
     end_points_collection = sc.name + '_end_points'
     with slim.arg_scope([slim.batch_norm, slim.dropout],
@@ -142,10 +144,13 @@ def densenet(inputs,
                          outputs_collections=end_points_collection), \
          slim.arg_scope([_conv], dropout_rate=dropout_rate):
       net = inputs
+
+      last_conv_num_filters = 2208
+      last_conv_growth_rate = 48
       net, num_filters = _dense_block(
-              net, 24 , 2208,
-              48,
-              scope='dense_block' + str(4))
+              net, num_layers[-1] , last_conv_num_filters,
+              last_conv_growth_rate,
+              scope='dense_block' + str(num_dense_blocks),filter_type=filter_type,verbose=verbose)
 
       # final blocks
       with tf.variable_scope('final_block', [inputs]):
@@ -229,42 +234,9 @@ def densenet_arg_scope(weight_decay=1e-4,
 
 class DenseNet161:
 
-    def var_2_train(self):
-        scopes = [scope.strip() for scope in 'densenet161/logits'.split(',')]
-        variables_to_train = []
-        for scope in scopes:
-            variables = tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES, scope)
-            variables_to_train.extend(variables)
-        # print(variables_to_train)
-        return variables_to_train;
 
     def load_model(self,save_model_dir,ckpt_file,sess,saver,load_logits=False):
-        if (os.path.exists(save_model_dir) and os_utils.chkpt_exists(save_model_dir)):
-            # Try to restore everything if possible
-            saver.restore(sess, ckpt_file)
-            print('Model Loaded Normally');
-            return 'Model Loaded Normally';
-
-        else:
-            print('Failed to Model Loaded Normally from ',ckpt_file);
-            if(load_logits):
-                exclusions = [scope.strip() for scope in '**'.split(',')]
-            else:
-                exclusions = [scope.strip() for scope in 'global_step,densenet161/logits'.split(',')]
-
-            variables_to_restore = []
-            for var in tf.contrib.slim.get_model_variables():
-                for exclusion in exclusions:
-                    if var.op.name.startswith(exclusion):
-                        break
-                else:
-                    variables_to_restore.append(var)
-
-            # print(variables_to_restore)
-            init_fn = tf.contrib.framework.assign_from_checkpoint_fn(self.cfg.imagenet__weights_filepath, variables_to_restore,ignore_missing_vars=False)
-            init_fn(sess)
-            print('Some variables loaded from imagenet')
-            return 'Failed to Model Loaded Normally from ' + str(ckpt_file) + '. Thus, Loaded Some variables loaded from imagenet'
+        raise NotImplementedError('TF variable Reuse=True for sub_networks, should not call this function ')
 
     def __init__(self,cfg, weight_decay=0.0001, data_format='NHWC',reuse=None,
                  images_ph = None,
@@ -273,6 +245,8 @@ class DenseNet161:
 
         self.cfg = cfg
         num_classes = cfg.num_classes
+        filter_type = cfg.filter_type
+        verbose = cfg.print_filter_name
         batch_size = None
         if lbls_ph is not None:
             self.gt_lbls = tf.reshape(lbls_ph,[-1,num_classes])
@@ -281,12 +255,8 @@ class DenseNet161:
 
         self.do_augmentation = tf.placeholder(tf.bool, name='do_augmentation')
         self.loss_class_weight = tf.placeholder(tf.float32, shape=(num_classes, num_classes), name='weights')
-        if cfg.db_name == 'honda':
-            self.input = tf.placeholder(tf.float32, shape=(batch_size, const.frame_height, const.frame_width,
-                                                           const.context_channels), name='context_input')
-        else:
-            self.input = tf.placeholder(tf.float32, shape=(batch_size, const.max_frame_size, const.max_frame_size,
-                                                           const.frame_channels), name='context_input')
+        self.input = tf.placeholder(tf.float32, shape=(batch_size, const.max_frame_size, const.max_frame_size,
+                                                           const.num_channels), name='context_input')
 
         # if is_training:
         if images_ph is not None:
@@ -319,6 +289,8 @@ class DenseNet161:
                                         data_format=data_format,
                                         is_training=False,  ## Set is always to false
                                         reuse=True,
+                                        filter_type=filter_type,
+                                        verbose=verbose,
                                         scope='densenet161')
 
 
@@ -337,7 +309,7 @@ class DenseNet161:
             supervised_correct_prediction = tf.equal(gt, class_prediction)
             supervised_correct_prediction_cast = tf.cast(supervised_correct_prediction, tf.float32)
             accuracy = tf.reduce_mean(supervised_correct_prediction_cast)
-            confusion_mat = tf.confusion_matrix(gt, class_prediction, num_classes=num_classes)
+            confusion_mat = tf.math.confusion_matrix(gt, class_prediction, num_classes=num_classes)
             _, accumulated_accuracy = tf.compat.v1.metrics.accuracy(gt, class_prediction)
             _, per_class_acc_acc = tf.compat.v1.metrics.mean_per_class_accuracy(gt, class_prediction, num_classes=num_classes)
             per_class_acc_acc = tf.reduce_mean(per_class_acc_acc)

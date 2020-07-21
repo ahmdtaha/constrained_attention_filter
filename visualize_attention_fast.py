@@ -57,22 +57,23 @@ def main(cfg):
     test_img = cv2.resize(test_img,(const.frame_height, const.frame_height))
     with tf.Graph().as_default():
 
-        images_ph = tf.placeholder(tf.float32, shape=(None, const.frame_height, const.frame_height,
+        images_ph = tf.compat.v1.placeholder(tf.float32, shape=(None, const.frame_height, const.frame_height,
                                                        const.num_channels), name='input_img')
-
-        lbls_ph = tf.placeholder(tf.int32, shape=(None, cfg.num_classes), name='class_lbls')
-
-        logits_ph = tf.placeholder(tf.float32, shape=(None, cfg.num_classes), name='logits_lbls')
-
-        per_class_logits_ph = tf.placeholder(tf.float32, shape=(None, cfg.num_classes), name='logits_lbls')
-
+        lbls_ph = tf.compat.v1.placeholder(tf.int32, shape=(None, cfg.num_classes), name='class_lbls')
+        logits_ph = tf.compat.v1.placeholder(tf.float32, shape=(None, cfg.num_classes), name='logits_lbls')
+        per_class_logits_ph = tf.compat.v1.placeholder(tf.float32, shape=(None, cfg.num_classes), name='logits_lbls')
         input_ph = nn_utils.adjust_color_space(images_ph,cfg.preprocess_func)
-        # print(input_ph)
         network_class = locate(cfg.network_name)
-        # print(network_class,cfg.preprocess_func)
-
-
         model = network_class(cfg, images_ph=input_ph, lbls_ph=lbls_ph)
+
+        pre_atten_feat_map_tf = tf.compat.v1.get_default_graph().get_tensor_by_name(cfg.replicate_net_at)
+        pre_atten_feat_map_tf_shape = pre_atten_feat_map_tf.shape
+        sub_feat_map_ph = tf.compat.v1.placeholder(tf.float32,
+                                         shape=[None, pre_atten_feat_map_tf_shape[1], pre_atten_feat_map_tf_shape[2],
+                                                pre_atten_feat_map_tf_shape[3]], name='feat_map_input')
+        sub_network_class = locate(cfg.sub_network_name)
+        sub_model = sub_network_class(cfg, images_ph=sub_feat_map_ph, lbls_ph=lbls_ph)
+        sub_logits = sub_model.val_logits
 
 
         logits = model.val_logits
@@ -81,17 +82,10 @@ def main(cfg):
         sess = tf.compat.v1.InteractiveSession()
 
         atten_filter_position = cfg.atten_filter_position
-        # if cfg.net == 'mobile':
-        #     atten_filter_position = '{}_Conv2d_13_pointwise:0' # mobilenet
-        # elif cfg.net == 'densenet161':
-        #     atten_filter_position = cfg.atten_filter_position
-        # elif cfg.net == 'inc1':
-        #     atten_filter_position = cfg.atten_filter_position  # inceptionV1
 
-        tf_atten_var = [v for v in tf.global_variables() if atten_filter_position.format('atten') in v.name][-1]
-        ## I have train and val siamese networks (Train do batch norm while val apply learned normalization)
+        tf_atten_var = [v for v in tf.compat.v1.global_variables() if atten_filter_position.format('atten') in v.name][-1]
         ## Didn't make a difference for tf_atten_var becuase tf_atten_var is created using get_varibale, i.e., shared
-        tf_gate_atten_var = [v for v in tf.global_variables() if atten_filter_position.format('gate') in v.name][-1]
+        tf_gate_atten_var = [v for v in tf.compat.v1.global_variables() if atten_filter_position.format('gate') in v.name][-1]
         # print(tf_gate_atten_var)
         # optimizer = tf.train.AdamOptimizer(0.01)
         global_step = tf.Variable(0, name='global_step', trainable=False)
@@ -103,15 +97,13 @@ def main(cfg):
         if class_specific:
             logger.info('Solving class specific optimization problem -- classification network')
 
-            mult_logits = per_class_logits_ph * logits
-            loss = tf.reduce_sum(mult_logits)
-            grads = optimizer.compute_gradients(loss, var_list=[tf_atten_var])
+            mult_logits_2 = per_class_logits_ph * sub_logits
+            loss_sub = tf.reduce_sum(mult_logits_2)
+            grads = optimizer.compute_gradients(loss_sub, var_list=[tf_atten_var])
             train_op = optimizer.apply_gradients(grads, global_step=global_step)
         else:
-            logger.info('Solving class oblivious optimization problem -- classification or feature embedding network')
-            loss = tf.reduce_mean(tf.square(logits_ph - logits))
-            grads = optimizer.compute_gradients(loss, var_list=[tf_atten_var])
-            train_op = optimizer.apply_gradients(grads, global_step=global_step)
+            raise NotImplementedError('cls_oblivious version implemented yet')
+
 
         # train_op = optimizer.minimize(loss, var_list=[tf_atten_var])
         tf.compat.v1.global_variables_initializer().run()
@@ -140,10 +132,10 @@ def main(cfg):
         else:
             rand_initilzalier = np.random.normal(0, 1, (tf_atten_var.shape[0], tf_atten_var.shape[1], 1))
 
-        # close_gate = tf.assign(tf_gate_atten_var, False)
-        open_gate = tf.assign(tf_gate_atten_var, True)
-        random_init = tf.assign(tf_atten_var, rand_initilzalier)
-        lr_reset = tf.assign(global_step, 0)
+        close_gate = tf.compat.v1.assign(tf_gate_atten_var, False)
+        open_gate = tf.compat.v1.assign(tf_gate_atten_var, True)
+        random_init = tf.compat.v1.assign(tf_atten_var, rand_initilzalier)
+        lr_reset = tf.compat.v1.assign(global_step, 0)
         MAX_INT = np.iinfo(np.int16).max
         # output_dir = cfg.output_dir
         for top_i in top_k:
@@ -158,32 +150,33 @@ def main(cfg):
             per_class_maximization[0,top_i] = -1
 
             while iteration < cfg.max_iters:
-                if class_specific:
 
-                    class_predictions, wrong_logits, _atten_var, _loss, _ = sess.run(
-                        [model.val_class_prediction, logits, tf_atten_var, loss, train_op],
-                        feed_dict={images_ph: np.expand_dims(test_img, 0),
-                                   per_class_logits_ph: per_class_maximization
-                                   })
-                else:
+                if iteration == 0:
+                    sess.run([close_gate])
+                    _pre_atten_feat_map_tf, _atten_var = sess.run(
+                        [pre_atten_feat_map_tf, tf_atten_var],
+                        feed_dict={
+                            # sub_feat_map_ph: _pre_atten_feat_map_tf,
+                            images_ph:  np.expand_dims(test_img, 0),
+                            per_class_logits_ph: per_class_maximization
+                        })
+                    sess.run([open_gate])
+                _atten_var, _sub_logits, _loss, _ = sess.run([tf_atten_var, sub_logits, loss_sub, train_op],
+                                                             feed_dict={
+                                                                 sub_feat_map_ph: _pre_atten_feat_map_tf,
+                                                                 # images_ph:np.expand_dims(img_crops[crop_idx,:,:,:],0),
+                                                                 per_class_logits_ph: per_class_maximization
+                                                             })
 
-                    class_predictions, wrong_logits, _atten_var, _loss, _ = sess.run(
-                        [model.val_class_prediction, logits, tf_atten_var, loss, train_op],
-                        feed_dict={images_ph: np.expand_dims(test_img, 0),
-                                   logits_ph:ground_logits
-                                   })
-                # _mult_logits = sess.run(mult_logits,
-                #     {per_class_logits_ph: np.ones((1, cfg.num_classes)), logits_ph: ground_logits}
-                #         )
 
                 if iteration % 50 == 0:
-                    logger.info('Iter {0:2d}: {1:.5f} Top {2:3d} {3} logit value {4:.2f}'.format(iteration, _loss,top_i,imagenet_lbls[top_i],wrong_logits[0,top_i]))
+                    logger.info('Iter {0:2d}: {1:.5f} Top {2:3d} {3}'.format(iteration, _loss,top_i,imagenet_lbls[top_i]))
                     # print(np.round(np.reshape(_atten_var,(7,7)),2))
                     if cfg.save_gif:
                         frame_mask = normalize_filter(filter_type,_atten_var,tf_atten_var.shape[0], tf_atten_var.shape[1])
                         if class_specific:
                             #
-                            heatmap_utils.save_heatmap(frame_mask,save=output_dir + img_name +'_msk_cls_{}_{}.png'.format(top_i,filter_type))
+                            # heatmap_utils.save_heatmap(frame_mask,save=output_dir + img_name +'_msk_cls_{}_{}.png'.format(top_i,filter_type))
                             plt = heatmap_utils.apply_heatmap(test_img / 255.0, frame_mask, alpha=0.7,
                                                     save=output_dir + img_name +'_cls_{}_{}.png'.format(top_i,filter_type), axis='off', cmap='bwr')
                         else:
@@ -198,7 +191,7 @@ def main(cfg):
                         # imageio.imwrite(dump_dir + '{}_test.jpg'.format(iteration),data_img)
                         plt.close()
 
-                    if np.abs(_loss - prev_loss) < 10e-7:
+                    if np.abs(_loss - prev_loss) < 10e-5:
                         break
 
                     prev_loss = _loss
@@ -207,7 +200,7 @@ def main(cfg):
 
             frame_mask = normalize_filter(filter_type, _atten_var, tf_atten_var.shape[0], tf_atten_var.shape[1])
             if class_specific:
-                imageio.imwrite(output_dir + img_name + '_msk_cls_{}_{}.png'.format(top_i, filter_type), frame_mask)
+                # imageio.imwrite(output_dir + img_name + '_msk_cls_{}_{}.png'.format(top_i, filter_type), frame_mask)
                 heatmap_utils.apply_heatmap(test_img / 255.0, frame_mask, alpha=0.6,
                                                   save=output_dir + img_name + '_cls_{}_{}.png'.format(top_i,
                                                                                                        filter_type),
@@ -227,24 +220,21 @@ def main(cfg):
 
 if __name__ == '__main__':
     arg_db_name = 'imagenet'
-    arg_net = 'inceptionv1' #[densenet161,inceptionv1,resnet50]
+    arg_net = 'densenet161' #[densenet161,inceptionv1,resnet50] ## For NOW only denseNet is supported
     args = [
         '--gpu', '0',
         '--output_dir',  './output_heatmaps/',
         '--db_name', arg_db_name,
         '--img_name', 'ILSVRC2012_val_00000021.JPEG', #[ILSVRC2012_val_00000021.JPEG,cute_dog.jpg]
-        '--print_filter_name',
+        # '--print_filter_name',
         '--net', arg_net,
-        '--caf_variant','cls_oblivious', #[cls_oblivious,cls_specific]
+        '--caf_variant','cls_specific', #[cls_oblivious,cls_specific]
         '--learning_rate','0.5',
         '--max_iters','1000',
         '--filter_type','l2norm', #['l2norm,softmax,gauss]
-        '--replicate_net_at','',
-        # '--atten_filter_position','dense_block4/{}_conv_block24:0' # last conv DenseNet
-        '--atten_filter_position','InceptionV1/{}_Mixed_5c:0' # last conv InceptionV1
-        # '--atten_filter_position','resnet_v2_50/{}_resnet_v2_50:0' # last conv resnet
-
-        # '--atten_filter_position','dense_block3/{}_conv_block36:0' # intermediate
+        '--replicate_net_at','densenet161/dense_block4/conv_block24/concat:0',
+        '--atten_filter_position','dense_block4/{}_conv_block24:0' # last conv DenseNet
     ]
     cfg = BaseConfig().parse(args)
+    assert cfg.net == 'densenet161'
     main(cfg)

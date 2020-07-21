@@ -35,12 +35,11 @@ Mainly, set the location of pre-trained model (e.g, densenet). The released code
 
 The unit L2-Norm constrained attention filter has two operating modes. 
 * `visualize_attention.py` is the script for the vanilla "slow" (4 seconds) mode. I recommend running this first before experimenting with the fast L2-CAF version. The code of this mode is much easier to understand. The script's main function sets all the hyper-parameters needed. I will ellaborate more on each hyper-parameter soon.
-* The fast L2-CAF version is not released yet. It is coming soon.
-## Release History
-* 1.0.0
-    * First commit Vanilla L2-CAF on DenseNet 12 July 2020
-    * Add support for InceptionV1 - 15 July 2020
-    * Add support for ResNet50V2 - 18 July 2020
+* The fast L2-CAF version is not released yet. It is coming soon. This script is the one to use to visualize attention at intermediate layers.
+
+* `visualize_attention_fast.py` is the script for the fast (0.3 seconds) mode. The script only supports denseNet. I will add support to Inception and ResNet soon.
+ This script only works for visualizing attention is the last conv layer. I only use it for quantitative evaluation experiments, for instance, when I evaluate L2-CAF using ImageNet validation split.
+
     
 ### TODO LIST
 * Add Fast L2-CAF on DenseNet
@@ -58,3 +57,12 @@ We used the python code released by [ADL](https://github.com/junsukchoe/ADL) in 
 Feel free to evaluate L2-CAF localization with other evaluation codes.
 * The softmax and Gaussian filters are released upon a reviewer request. The current Gaussian filter implementation is hard-coded to support only 7x7 attention filter.
  It is straight forward to extend it for any odd filter-size (e.g., 13x13). However, for even filter-size I think more changes are required. The last conv layer in standard architectures is 7x7. So the current configuration should cover most typical case-scenario.
+ 
+
+
+## Release History
+* 1.0.0
+    * First commit Vanilla L2-CAF on DenseNet 12 July 2020
+    * Add support for InceptionV1 - 15 July 2020
+    * Add support for ResNet50V2 - 18 July 2020
+    * Add Fast L2-CAF on DenseNet 21 July 2020

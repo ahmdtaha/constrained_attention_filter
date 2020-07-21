@@ -1,6 +1,8 @@
 # Constrained Attention Filter (CAF)
 (ECCV 2020) Tensorflow implementation of **A Generic Visualization Approach for Convolutional Neural Networks**
 
+[Paper](https://arxiv.org/abs/2007.09748) | 1 Min Video | 10 Mins Video
+
 Will upload code after finalizing the camera ready version.
 
 ### Teaser
@@ -54,5 +56,5 @@ The unit L2-Norm constrained attention filter has two operating modes.
 * We did not write localization evaluation code. We used the matlab code released by [CAM](https://github.com/zhoubolei/CAM) in Tables 1  and 3.
 We used the python code released by [ADL](https://github.com/junsukchoe/ADL) in Table 2. 
 Feel free to evaluate L2-CAF localization with other evaluation codes.
-* The softmax and Gaussian filters are released upon a reviewer request. The current Gaussian filter implementation is hard-coded to support 7x7 attention filter.
+* The softmax and Gaussian filters are released upon a reviewer request. The current Gaussian filter implementation is hard-coded to support only 7x7 attention filter.
  It is straight forward to extend it for any odd filter-size (e.g., 13x13). However, for even filter-size I think more changes are required. The last conv layer in standard architectures is 7x7. So the current configuration should cover most typical case-scenario.

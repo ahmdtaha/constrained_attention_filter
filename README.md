@@ -9,9 +9,10 @@ Will upload code after finalizing the camera ready version.
 ![](https://github.com/ahmdtaha/constrained_attention_filter/blob/master/gif/l2_caf.gif)
 
 ### TL;DR
-The core components of L2-CAF are
+The are three core components of L2-CAF are
 
-1- TF filter
+1- [TF filter](https://github.com/ahmdtaha/constrained_attention_filter/blob/035f0880baae6a12540dd0b4cc0830cef243c1af/nets/attention_filter.py#L19) This is the function that inserts L2-CAF inside a network (E.g, inside a [DenseNet](https://github.com/ahmdtaha/constrained_attention_filter/blob/035f0880baae6a12540dd0b4cc0830cef243c1af/nets/densenet161.py#L90)). L2-CAF is by default disabled; it is passive during classification.
+To active/de-activate L2-CAF (turn on and off the filter), I use the bool `atten_var_gate`. False deactivate L2-CAF, while True activates the filter.
 
 2- Optimization loop
 
@@ -35,7 +36,6 @@ Mainly, set the location of pre-trained model (e.g, densenet). The released code
 
 The unit L2-Norm constrained attention filter has two operating modes. 
 * `visualize_attention.py` is the script for the vanilla "slow" (4 seconds) mode. I recommend running this first before experimenting with the fast L2-CAF version. The code of this mode is much easier to understand. The script's main function sets all the hyper-parameters needed. I will ellaborate more on each hyper-parameter soon.
-* The fast L2-CAF version is not released yet. It is coming soon. This script is the one to use to visualize attention at intermediate layers.
 
 * `visualize_attention_fast.py` is the script for the fast (0.3 seconds) mode. The script only supports denseNet. I will add support to Inception and ResNet soon.
  This script only works for visualizing attention is the last conv layer. I only use it for quantitative evaluation experiments, for instance, when I evaluate L2-CAF using ImageNet validation split.
@@ -58,11 +58,10 @@ Feel free to evaluate L2-CAF localization with other evaluation codes.
 * The softmax and Gaussian filters are released upon a reviewer request. The current Gaussian filter implementation is hard-coded to support only 7x7 attention filter.
  It is straight forward to extend it for any odd filter-size (e.g., 13x13). However, for even filter-size I think more changes are required. The last conv layer in standard architectures is 7x7. So the current configuration should cover most typical case-scenario.
  
-
+* I used parts of this code (especially the nets package) in multiple projects, so there is a lot of code that is not related to L2-CAF. I will iteratively clean the code. The TL;DR section, at the top of the readme file, highlights the core functions related to L2-CAF.
 
 ## Release History
 * 1.0.0
-    * First commit Vanilla L2-CAF on DenseNet 12 July 2020
-    * Add support for InceptionV1 - 15 July 2020
-    * Add support for ResNet50V2 - 18 July 2020
+    * First commit Vanilla L2-CAF on DenseNet, InceptionV1, and ResNet50V2 on 12, 15,18 July 2020
     * Add Fast L2-CAF on DenseNet 21 July 2020
+    * Add Fast L2-CAF on Inception 22 July 2020

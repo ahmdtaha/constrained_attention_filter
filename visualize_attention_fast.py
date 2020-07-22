@@ -220,7 +220,7 @@ def main(cfg):
 
 if __name__ == '__main__':
     arg_db_name = 'imagenet'
-    arg_net = 'densenet161' #[densenet161,inceptionv1,resnet50] ## For NOW only denseNet is supported
+    arg_net = 'inceptionv1' #[densenet161,inceptionv1,resnet50] ## resnet50 is not supported yet.
     args = [
         '--gpu', '0',
         '--output_dir',  './output_heatmaps/',
@@ -228,13 +228,17 @@ if __name__ == '__main__':
         '--img_name', 'ILSVRC2012_val_00000021.JPEG', #[ILSVRC2012_val_00000021.JPEG,cute_dog.jpg]
         # '--print_filter_name',
         '--net', arg_net,
-        '--caf_variant','cls_specific', #[cls_oblivious,cls_specific]
+        '--caf_variant','cls_specific', #[cls_oblivious,cls_specific] ## cls_oblivious is not supported.
         '--learning_rate','0.5',
         '--max_iters','1000',
         '--filter_type','l2norm', #['l2norm,softmax,gauss]
-        '--replicate_net_at','densenet161/dense_block4/conv_block24/concat:0',
-        '--atten_filter_position','dense_block4/{}_conv_block24:0' # last conv DenseNet
+
+        # '--replicate_net_at','densenet161/dense_block4/conv_block24/concat:0',
+        # '--atten_filter_position','dense_block4/{}_conv_block24:0' # last conv DenseNet
+
+        '--replicate_net_at','InceptionV1/InceptionV1/Mixed_5c/concat:0',
+        '--atten_filter_position', 'InceptionV1/{}_Mixed_5c:0'  # last conv InceptionV1
     ]
     cfg = BaseConfig().parse(args)
-    assert cfg.net == 'densenet161'
+    assert cfg.net == 'densenet161' or cfg.net == 'inceptionv1'
     main(cfg)

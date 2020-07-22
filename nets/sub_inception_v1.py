@@ -34,6 +34,8 @@ trunc_normal = lambda stddev: tf.truncated_normal_initializer(0.0, stddev)
 def inception_v1_base(inputs,
                       final_endpoint='Mixed_5c',
                       include_root_block=True,
+                      filter_type=None,
+                      verbose=None,
                       scope='InceptionV1'):
   """Defines the Inception V1 base architecture.
 
@@ -72,14 +74,7 @@ def inception_v1_base(inputs,
 
         end_point = 'Mixed_5c'
         net = inputs
-        net = attention_filter.add_attention_filter(net, end_point)
-
-        # atten_var = tf.get_variable("atten_" + end_point, [net.shape[1], net.shape[2], 1], dtype=tf.float32,
-        #                             initializer=tf.contrib.layers.xavier_initializer())
-        # print(atten_var)
-        # atten_var_norm = atten_var / tf.norm(atten_var)
-        # atten_var_gate = tf.Variable(False, name="gate_" + end_point)
-        # net = tf.cond(atten_var_gate, lambda: tf.multiply(atten_var_norm, net), lambda: tf.identity(net))
+        net = attention_filter.add_attention_filter(net, end_point,verbose=verbose, filter_type=filter_type)
 
         end_points[end_point] = net
         if final_endpoint == end_point: return net, end_points
@@ -94,6 +89,8 @@ def inception_v1(inputs,
                  spatial_squeeze=True,
                  reuse=None,
                  scope='InceptionV1',
+                 filter_type=None,
+                 verbose=None,
                  global_pool=False):
   """Defines the Inception V1 architecture.
 
@@ -135,7 +132,7 @@ def inception_v1(inputs,
   with tf.variable_scope(scope, 'InceptionV1', [inputs], reuse=reuse) as scope:
     with slim.arg_scope([slim.batch_norm, slim.dropout],
                         is_training=is_training):
-      net, end_points = inception_v1_base(inputs, scope=scope)
+      net, end_points = inception_v1_base(inputs, scope=scope,filter_type=filter_type,verbose=verbose)
 
 
 
@@ -167,56 +164,9 @@ inception_v1_arg_scope = inception_utils.inception_arg_scope
 
 class InceptionV1:
 
-    def var_2_train(self):
-        scopes = [scope.strip() for scope in 'InceptionV1/Logits'.split(',')]
-        variables_to_train = []
-        for scope in scopes:
-            variables = tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES, scope)
-            variables_to_train.extend(variables)
-        print(variables_to_train)
-        return variables_to_train;
-
-    def resume_model(self,save_model_dir,ckpt_file,sess,saver):
-        variables_to_restore = []
-        exclusions = [scope.strip() for scope in '**'.split(',')]
-        for var in tf.contrib.slim.get_model_variables():
-            for exclusion in exclusions:
-                if var.op.name.startswith(exclusion):
-                    break
-            else:
-                variables_to_restore.append(var)
-
-        init_fn = tf.contrib.framework.assign_from_checkpoint_fn(ckpt_file,
-                                                                 variables_to_restore, ignore_missing_vars=False)
-        init_fn(sess)
 
     def load_model(self,save_model_dir,ckpt_file,sess,saver,load_logits=False):
-        if (os.path.exists(save_model_dir) and os_utils.chkpt_exists(save_model_dir)):
-            # Try to restore everything if possible
-            saver.restore(sess, ckpt_file)
-            print('Model Loaded Normally');
-            return 'Model Loaded Normally';
-        else:
-            print('Failed to Model Loaded Normally from ',ckpt_file);
-            if (load_logits):
-                exclusions = [scope.strip() for scope in '**'.split(',')]
-            else:
-                exclusions = [scope.strip() for scope in 'Logits,InceptionV1/Logits,InceptionV1/AuxLogits'.split(',')]
-            # exclusions = [scope.strip() for scope in '**'.split(',')]
-            variables_to_restore = []
-            for var in tf.contrib.slim.get_model_variables():
-                for exclusion in exclusions:
-                    if var.op.name.startswith(exclusion):
-                        break
-                else:
-                    variables_to_restore.append(var)
-            # print(variables_to_restore)
-            init_fn = tf.contrib.framework.assign_from_checkpoint_fn(self.cfg.imagenet__weights_filepath, variables_to_restore,ignore_missing_vars=False)
-            # init_fn = tf.contrib.framework.assign_from_checkpoint_fn(config.imagenet__weights_filepath)
-            init_fn(sess)
-            print('Some variables loaded from imagenet')
-            return 'Failed to Model Loaded Normally from ' + str(
-                ckpt_file) + '. Thus, Loaded Some variables loaded from imagenet'
+        raise NotImplementedError('TF variable Reuse=True for sub_networks, should not call this function ')
 
 
     def __init__(self, cfg=None, is_training=True,
@@ -227,6 +177,8 @@ class InceptionV1:
                  ):
         self.cfg = cfg
         batch_size = None
+        filter_type = cfg.filter_type
+        verbose = cfg.print_filter_name
         num_classes = cfg.num_classes
         if lbls_ph is not None:
             self.gt_lbls = tf.reshape(lbls_ph, [-1, num_classes])
@@ -235,12 +187,8 @@ class InceptionV1:
 
         self.do_augmentation = tf.placeholder(tf.bool, name='do_augmentation')
         self.loss_class_weight = tf.placeholder(tf.float32, shape=(num_classes, num_classes), name='weights')
-        if cfg.db_name == 'honda':
-            self.input = tf.placeholder(tf.float32, shape=(batch_size, const.frame_height, const.frame_width,
-                                                           const.context_channels), name='context_input')
-        else:
-            self.input = tf.placeholder(tf.float32, shape=(batch_size, const.max_frame_size, const.max_frame_size,
-                                                           const.frame_channels), name='context_input')
+        self.input = tf.placeholder(tf.float32, shape=(batch_size, const.max_frame_size, const.max_frame_size,
+                                                           const.num_channels), name='context_input')
 
         # if is_training:
         if images_ph is not None:
@@ -266,11 +214,12 @@ class InceptionV1:
 
             _, self.val_end_points = inception_v1(aug_imgs, num_classes,
                                              dropout_keep_prob=dropout_keep_prob,
-                                             is_training=False,reuse=True, scope=scope)
+                                             is_training=False,reuse=True, scope=scope,
+                                              filter_type=filter_type,verbose=verbose)
 
 
         def  cal_metrics(end_points):
-            gt = tf.argmax(self.gt_lbls, 1);
+            gt = tf.argmax(self.gt_lbls, 1)
             logits = tf.reshape(end_points['Logits'], [-1, num_classes])
             pre_logits = end_points['Mixed_5c']
 

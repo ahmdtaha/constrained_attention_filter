@@ -3,11 +3,6 @@ import getpass
 import argparse
 
 
-
-# import constants as const
-
-
-
 class BaseConfig:
 
     def __init__(self):
@@ -144,7 +139,6 @@ class BaseConfig:
 
         if dataset_name == 'imagenet':
             num_classes = 1000
-            # db_path =   '/mnt/data/imagenet/ILSVRC'
             db_path = datasets_dir + 'imagenet/ILSVRC'
             db_tuple_loader = 'data_sampling.imagenet_tuple_loader.ImageNetTupleLoader'
             train_csv_file = '/lists/train_all_sub_list.csv'
@@ -154,16 +148,3 @@ class BaseConfig:
             raise NotImplementedError('dataset_name not found')
 
         return num_classes,db_path,db_tuple_loader,train_csv_file,val_csv_file,test_csv_file
-
-
-if __name__ == '__main__':
-    args = [
-        '--db_name','flowers'
-    ]
-    cfg = BaseConfig().parse(args)
-    print(cfg.num_classes,cfg.train_csv_file)
-    if hasattr(cfg,'abc'):
-        print(cfg.abc)
-    else:
-        print('Something is wrong')
-

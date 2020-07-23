@@ -65,6 +65,7 @@ def main(cfg):
         input_ph = nn_utils.adjust_color_space(images_ph,cfg.preprocess_func)
         network_class = locate(cfg.network_name)
         model = network_class(cfg, images_ph=input_ph, lbls_ph=lbls_ph)
+        logits = model.val_logits
 
         pre_atten_feat_map_tf = tf.compat.v1.get_default_graph().get_tensor_by_name(cfg.replicate_net_at)
         pre_atten_feat_map_tf_shape = pre_atten_feat_map_tf.shape
@@ -76,13 +77,8 @@ def main(cfg):
         sub_logits = sub_model.val_logits
 
 
-        logits = model.val_logits
-
-
         sess = tf.compat.v1.InteractiveSession()
-
         atten_filter_position = cfg.atten_filter_position
-
         tf_atten_var = [v for v in tf.compat.v1.global_variables() if atten_filter_position.format('atten') in v.name][-1]
         ## Didn't make a difference for tf_atten_var becuase tf_atten_var is created using get_varibale, i.e., shared
         tf_gate_atten_var = [v for v in tf.compat.v1.global_variables() if atten_filter_position.format('gate') in v.name][-1]
@@ -105,7 +101,6 @@ def main(cfg):
             raise NotImplementedError('cls_oblivious version implemented yet')
 
 
-        # train_op = optimizer.minimize(loss, var_list=[tf_atten_var])
         tf.compat.v1.global_variables_initializer().run()
         ckpt_file = tf.train.latest_checkpoint(output_dir)
         logger.info('Model Path {}'.format(ckpt_file))
@@ -122,7 +117,6 @@ def main(cfg):
 
         k = 1
         top_k = np.argsort(np.squeeze(ground_logits))[::-1][:k]
-        # top_k = [235,282,94,1,225]
         logger.info('Top K={} {}'.format(k, [imagenet_lbls[i] for i in top_k]))
 
 
@@ -220,7 +214,7 @@ def main(cfg):
 
 if __name__ == '__main__':
     arg_db_name = 'imagenet'
-    arg_net = 'inceptionv1' #[densenet161,inceptionv1,resnet50] ## resnet50 is not supported yet.
+    arg_net = 'inceptionv1' #[densenet161,inceptionv1,resnet50]
     args = [
         '--gpu', '0',
         '--output_dir',  './output_heatmaps/',
@@ -238,7 +232,10 @@ if __name__ == '__main__':
 
         '--replicate_net_at','InceptionV1/InceptionV1/Mixed_5c/concat:0',
         '--atten_filter_position', 'InceptionV1/{}_Mixed_5c:0'  # last conv InceptionV1
+
+        # '--replicate_net_at',      'resnet_v2_50/postnorm/Relu:0',
+        # '--atten_filter_position', 'resnet_v2_50/{}_resnet_v2_50:0'  # last conv resnet
     ]
     cfg = BaseConfig().parse(args)
-    assert cfg.net == 'densenet161' or cfg.net == 'inceptionv1'
+    # assert cfg.net == 'densenet161' or cfg.net == 'inceptionv1'
     main(cfg)

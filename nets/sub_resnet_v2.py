@@ -122,6 +122,8 @@ def resnet_v2(inputs,
               output_stride=None,
               include_root_block=True,
               spatial_squeeze=True,
+              filter_type=None,
+              verbose=None,
               reuse=None,
               scope=None):
     """Generator for v2 (preactivation) ResNet models.
@@ -197,13 +199,8 @@ def resnet_v2(inputs,
                     end_points_collection)
                 print(net)
                 end_point = 'resnet_v2_50'
-                # atten_var = tf.get_variable("atten_" + end_point, [net.shape[1], net.shape[2], 1], dtype=tf.float32,
-                #                             initializer=tf.contrib.layers.xavier_initializer())
-                # print(atten_var)
-                # atten_var_norm = atten_var / tf.norm(atten_var)
-                # atten_var_gate = tf.Variable(False, name="gate_" + end_point)
-                # net = tf.cond(atten_var_gate, lambda: tf.multiply(atten_var_norm, net), lambda: tf.identity(net))
-                net = attention_filter.add_attention_filter(net, end_point)
+
+                net = attention_filter.add_attention_filter(net, end_point,verbose=verbose, filter_type=filter_type)
 
                 if global_pool:
                     # Global average pooling.
@@ -257,6 +254,8 @@ def resnet_v2_50(inputs,
                  output_stride=None,
                  spatial_squeeze=True,
                  reuse=None,
+                 filter_type=None,
+                 verbose=None,
                  scope='resnet_v2_50'):
     """ResNet-50 model of [1]. See resnet_v2() for arg and return description."""
     blocks = [
@@ -268,7 +267,7 @@ def resnet_v2_50(inputs,
     return resnet_v2(inputs, blocks, num_classes, is_training=is_training,
                      global_pool=global_pool, output_stride=output_stride,
                      include_root_block=True, spatial_squeeze=spatial_squeeze,
-                     reuse=reuse, scope=scope)
+                     reuse=reuse, scope=scope,filter_type=filter_type,verbose=verbose)
 
 
 resnet_v2_50.default_image_size = resnet_v2.default_image_size
@@ -347,57 +346,9 @@ resnet_v2_200.default_image_size = resnet_v2.default_image_size
 
 
 class ResNet50:
-    def var_2_train(self):
-        scopes = [scope.strip() for scope in 'resnet_v2_50/logits'.split(',')]
-        variables_to_train = []
-        for scope in scopes:
-            variables = tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES, scope)
-            variables_to_train.extend(variables)
-        print(variables_to_train)
-        return variables_to_train;
-
-    def resume_model(self, save_model_dir, ckpt_file, sess, saver):
-        variables_to_restore = []
-        exclusions = [scope.strip() for scope in '**'.split(',')]
-        for var in tf.contrib.slim.get_model_variables():
-            for exclusion in exclusions:
-                if var.op.name.startswith(exclusion):
-                    break
-            else:
-                variables_to_restore.append(var)
-
-        init_fn = tf.contrib.framework.assign_from_checkpoint_fn(ckpt_file,
-                                                                 variables_to_restore, ignore_missing_vars=False)
-        init_fn(sess)
 
     def load_model(self, save_model_dir, ckpt_file, sess, saver, load_logits=False):
-        # ckpt_file = tf.train.latest_checkpoint(save_model_dir)
-        # if (os.path.exists(save_model_dir) and os_utils.chkpt_exists(save_model_dir)):
-        if not ckpt_file is None:
-            # Try to restore everything if possible
-            saver.restore(sess, ckpt_file)
-            return 'Model Loaded Normally';
-        else:
-            print('Failed to Model Loaded Normally from ', ckpt_file);
-            if (load_logits):
-                exclusions = [scope.strip() for scope in '**'.split(',')]
-            else:
-                exclusions = [scope.strip() for scope in 'resnet_v2_50/logits'.split(',')]
-            # exclusions = [scope.strip() for scope in '**'.split(',')]
-            variables_to_restore = []
-            for var in tf.contrib.slim.get_model_variables():
-                for exclusion in exclusions:
-                    if var.op.name.startswith(exclusion):
-                        break
-                else:
-                    variables_to_restore.append(var)
-            # print(variables_to_restore)
-            init_fn = tf.contrib.framework.assign_from_checkpoint_fn(self.cfg.imagenet__weights_filepath,
-                                                                     variables_to_restore, ignore_missing_vars=False)
-            # init_fn = tf.contrib.framework.assign_from_checkpoint_fn(config.imagenet__weights_filepath)
-            init_fn(sess)
-            return 'Failed to Model Loaded Normally from ' + str(
-                ckpt_file) + '. Thus, Loaded Some variables loaded from imagenet'
+        raise NotImplementedError('TF variable Reuse=True for sub_networks, should not call this function ')
 
     def __init__(self,
                  cfg=None,
@@ -411,7 +362,10 @@ class ResNet50:
                  lbls_ph=None
                  ):
         self.cfg = cfg
+        filter_type = cfg.filter_type
+        verbose = cfg.print_filter_name
         batch_size = None
+
         if lbls_ph is not None:
             self.gt_lbls = tf.reshape(lbls_ph, [-1, cfg.num_classes])
         else:
@@ -419,12 +373,8 @@ class ResNet50:
 
         self.do_augmentation = tf.placeholder(tf.bool, name='do_augmentation')
         self.loss_class_weight = tf.placeholder(tf.float32, shape=(cfg.num_classes, cfg.num_classes), name='weights')
-        if cfg.db_name == 'honda':
-            self.input = tf.placeholder(tf.float32, shape=(batch_size, const.frame_height, const.frame_width,
-                                                           const.context_channels), name='context_input')
-        else:
-            self.input = tf.placeholder(tf.float32, shape=(batch_size, const.max_frame_size, const.max_frame_size,
-                                                           const.frame_channels), name='context_input')
+        self.input = tf.placeholder(tf.float32, shape=(batch_size, const.max_frame_size, const.max_frame_size,
+                                                           const.num_channels), name='context_input')
 
         # if is_training:
         if images_ph is not None:
@@ -433,10 +383,7 @@ class ResNet50:
             aug_imgs = tf.reshape(self.input, [-1, w, h, c])
             print('No nnutils Augmentation')
         else:
-            if cfg.db_name == 'honda':
-                aug_imgs = self.input
-            else:
-                aug_imgs = tf.cond(self.do_augmentation,
+            aug_imgs = tf.cond(self.do_augmentation,
                                    lambda: nn_utils.augment(self.input, cfg.preprocess_func, horizontal_flip=True,
                                                             vertical_flip=False,
                                                             rotate=0, crop_probability=0, color_aug_probability=0)
@@ -447,10 +394,11 @@ class ResNet50:
             _, val_end_points = resnet_v2_50(aug_imgs, cfg.num_classes, is_training=False,
                                              global_pool=global_pool, output_stride=output_stride,
                                              spatial_squeeze=spatial_squeeze,
-                                             reuse=True, scope=scope)
+                                             reuse=True, scope=scope,
+                                             filter_type=filter_type,verbose=verbose)
 
         def cal_metrics(end_points):
-            gt = tf.argmax(self.gt_lbls, 1);
+            gt = tf.argmax(self.gt_lbls, 1)
             logits = tf.reshape(end_points['resnet_v2_50/logits'], [-1, cfg.num_classes])
             pre_logits = None #end_points['resnet_v2_50/block4/unit_3/bottleneck_v2']
 

@@ -1664,3 +1664,561 @@ Use standard file APIs to check for files with this prefix.
 2020-07-22 12:42:09,428 [INFO] Log: Iter 50: -24.52480 Top 335 fox squirrel, eastern fox squirrel, Sciurus niger
 2020-07-22 12:42:09,538 [INFO] Log: Iter 100: -24.52842 Top 335 fox squirrel, eastern fox squirrel, Sciurus niger
 2020-07-22 12:42:09,642 [INFO] Log: Iter 150: -24.52844 Top 335 fox squirrel, eastern fox squirrel, Sciurus niger
+2020-07-23 18:20:13,863 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/nn_utils.py:140: to_float (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `tf.cast` instead.
+2020-07-23 18:20:13,863 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/nn_utils.py:140: to_float (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `tf.cast` instead.
+2020-07-23 18:20:14,460 [WARNING] tensorflow: 
+The TensorFlow contrib module will not be included in TensorFlow 2.0.
+For more information, please see:
+  * https://github.com/tensorflow/community/blob/master/rfcs/20180907-contrib-sunset.md
+  * https://github.com/tensorflow/addons
+  * https://github.com/tensorflow/io (for I/O related ops)
+If you depend on functionality not listed there, please file an issue.
+
+2020-07-23 18:20:14,460 [WARNING] tensorflow: 
+The TensorFlow contrib module will not be included in TensorFlow 2.0.
+For more information, please see:
+  * https://github.com/tensorflow/community/blob/master/rfcs/20180907-contrib-sunset.md
+  * https://github.com/tensorflow/addons
+  * https://github.com/tensorflow/io (for I/O related ops)
+If you depend on functionality not listed there, please file an issue.
+
+2020-07-23 18:20:14,461 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/resnet_v2.py:425: The name tf.placeholder is deprecated. Please use tf.compat.v1.placeholder instead.
+
+2020-07-23 18:20:14,461 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/resnet_v2.py:425: The name tf.placeholder is deprecated. Please use tf.compat.v1.placeholder instead.
+
+2020-07-23 18:20:14,464 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/resnet_utils.py:253: The name tf.GraphKeys is deprecated. Please use tf.compat.v1.GraphKeys instead.
+
+2020-07-23 18:20:14,464 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/resnet_utils.py:253: The name tf.GraphKeys is deprecated. Please use tf.compat.v1.GraphKeys instead.
+
+2020-07-23 18:20:14,464 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/resnet_v2.py:191: The name tf.variable_scope is deprecated. Please use tf.compat.v1.variable_scope instead.
+
+2020-07-23 18:20:14,464 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/resnet_v2.py:191: The name tf.variable_scope is deprecated. Please use tf.compat.v1.variable_scope instead.
+
+2020-07-23 18:20:16,282 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/resnet_v2.py:471: The name tf.confusion_matrix is deprecated. Please use tf.math.confusion_matrix instead.
+
+2020-07-23 18:20:16,282 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/resnet_v2.py:471: The name tf.confusion_matrix is deprecated. Please use tf.math.confusion_matrix instead.
+
+2020-07-23 18:20:16,692 [INFO] Log: Learning rate 0.5 1000
+2020-07-23 18:20:16,702 [WARNING] tensorflow: From /home/ataha/envs/.tf_14/lib/python3.7/site-packages/tensorflow/python/keras/optimizer_v2/learning_rate_schedule.py:409: div (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Deprecated in favor of operator or tf.math.divide.
+2020-07-23 18:20:16,702 [WARNING] tensorflow: From /home/ataha/envs/.tf_14/lib/python3.7/site-packages/tensorflow/python/keras/optimizer_v2/learning_rate_schedule.py:409: div (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Deprecated in favor of operator or tf.math.divide.
+2020-07-23 18:20:16,707 [INFO] Log: Solving class specific optimization problem -- classification network
+2020-07-23 18:20:17,809 [INFO] Log: Model Path None
+2020-07-23 18:20:18,173 [WARNING] tensorflow: From /home/ataha/envs/.tf_14/lib/python3.7/site-packages/tensorflow/python/training/saver.py:1276: checkpoint_exists (from tensorflow.python.training.checkpoint_management) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use standard file APIs to check for files with this prefix.
+2020-07-23 18:20:18,173 [WARNING] tensorflow: From /home/ataha/envs/.tf_14/lib/python3.7/site-packages/tensorflow/python/training/saver.py:1276: checkpoint_exists (from tensorflow.python.training.checkpoint_management) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use standard file APIs to check for files with this prefix.
+2020-07-23 18:20:18,516 [INFO] tensorflow: Restoring parameters from /mnt/data/pretrained/resnet_v2_50/resnet_v2_50.ckpt
+2020-07-23 18:20:18,516 [INFO] tensorflow: Restoring parameters from /mnt/data/pretrained/resnet_v2_50/resnet_v2_50.ckpt
+2020-07-23 18:20:18,913 [INFO] Log: Model weights initialized from imageNet
+2020-07-23 18:20:20,293 [INFO] Log: Top K=1 ['fox squirrel, eastern fox squirrel, Sciurus niger']
+2020-07-23 18:20:20,591 [INFO] Log: Iter  0: -1.27308 Top 335 fox squirrel, eastern fox squirrel, Sciurus niger
+2020-07-23 18:20:20,884 [INFO] Log: Iter 50: -6.62498 Top 335 fox squirrel, eastern fox squirrel, Sciurus niger
+2020-07-23 18:20:21,188 [INFO] Log: Iter 100: -6.62659 Top 335 fox squirrel, eastern fox squirrel, Sciurus niger
+2020-07-23 18:20:21,506 [INFO] Log: Iter 150: -6.62661 Top 335 fox squirrel, eastern fox squirrel, Sciurus niger
+2020-07-23 18:21:30,692 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/nn_utils.py:140: to_float (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `tf.cast` instead.
+2020-07-23 18:21:30,692 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/nn_utils.py:140: to_float (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `tf.cast` instead.
+2020-07-23 18:21:31,068 [WARNING] tensorflow: 
+The TensorFlow contrib module will not be included in TensorFlow 2.0.
+For more information, please see:
+  * https://github.com/tensorflow/community/blob/master/rfcs/20180907-contrib-sunset.md
+  * https://github.com/tensorflow/addons
+  * https://github.com/tensorflow/io (for I/O related ops)
+If you depend on functionality not listed there, please file an issue.
+
+2020-07-23 18:21:31,068 [WARNING] tensorflow: 
+The TensorFlow contrib module will not be included in TensorFlow 2.0.
+For more information, please see:
+  * https://github.com/tensorflow/community/blob/master/rfcs/20180907-contrib-sunset.md
+  * https://github.com/tensorflow/addons
+  * https://github.com/tensorflow/io (for I/O related ops)
+If you depend on functionality not listed there, please file an issue.
+
+2020-07-23 18:21:31,070 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/resnet_v2.py:425: The name tf.placeholder is deprecated. Please use tf.compat.v1.placeholder instead.
+
+2020-07-23 18:21:31,070 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/resnet_v2.py:425: The name tf.placeholder is deprecated. Please use tf.compat.v1.placeholder instead.
+
+2020-07-23 18:21:31,072 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/resnet_utils.py:253: The name tf.GraphKeys is deprecated. Please use tf.compat.v1.GraphKeys instead.
+
+2020-07-23 18:21:31,072 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/resnet_utils.py:253: The name tf.GraphKeys is deprecated. Please use tf.compat.v1.GraphKeys instead.
+
+2020-07-23 18:21:31,073 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/resnet_v2.py:191: The name tf.variable_scope is deprecated. Please use tf.compat.v1.variable_scope instead.
+
+2020-07-23 18:21:31,073 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/resnet_v2.py:191: The name tf.variable_scope is deprecated. Please use tf.compat.v1.variable_scope instead.
+
+2020-07-23 18:21:32,945 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/resnet_v2.py:471: The name tf.confusion_matrix is deprecated. Please use tf.math.confusion_matrix instead.
+
+2020-07-23 18:21:32,945 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/resnet_v2.py:471: The name tf.confusion_matrix is deprecated. Please use tf.math.confusion_matrix instead.
+
+2020-07-23 18:21:33,351 [INFO] Log: Learning rate 0.5 1000
+2020-07-23 18:21:33,355 [WARNING] tensorflow: From /home/ataha/envs/.tf_14/lib/python3.7/site-packages/tensorflow/python/keras/optimizer_v2/learning_rate_schedule.py:409: div (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Deprecated in favor of operator or tf.math.divide.
+2020-07-23 18:21:33,355 [WARNING] tensorflow: From /home/ataha/envs/.tf_14/lib/python3.7/site-packages/tensorflow/python/keras/optimizer_v2/learning_rate_schedule.py:409: div (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Deprecated in favor of operator or tf.math.divide.
+2020-07-23 18:21:33,358 [INFO] Log: Solving class specific optimization problem -- classification network
+2020-07-23 18:21:34,497 [INFO] Log: Model Path None
+2020-07-23 18:21:34,862 [WARNING] tensorflow: From /home/ataha/envs/.tf_14/lib/python3.7/site-packages/tensorflow/python/training/saver.py:1276: checkpoint_exists (from tensorflow.python.training.checkpoint_management) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use standard file APIs to check for files with this prefix.
+2020-07-23 18:21:34,862 [WARNING] tensorflow: From /home/ataha/envs/.tf_14/lib/python3.7/site-packages/tensorflow/python/training/saver.py:1276: checkpoint_exists (from tensorflow.python.training.checkpoint_management) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use standard file APIs to check for files with this prefix.
+2020-07-23 18:21:34,864 [INFO] tensorflow: Restoring parameters from /mnt/data/pretrained/resnet_v2_50/resnet_v2_50.ckpt
+2020-07-23 18:21:34,864 [INFO] tensorflow: Restoring parameters from /mnt/data/pretrained/resnet_v2_50/resnet_v2_50.ckpt
+2020-07-23 18:21:35,245 [INFO] Log: Model weights initialized from imageNet
+2020-07-23 18:21:36,730 [INFO] Log: Top K=1 ['fox squirrel, eastern fox squirrel, Sciurus niger']
+2020-07-23 18:21:37,046 [INFO] Log: Iter  0: -0.69407 Top 335 fox squirrel, eastern fox squirrel, Sciurus niger
+2020-07-23 18:21:37,370 [INFO] Log: Iter 50: -6.62413 Top 335 fox squirrel, eastern fox squirrel, Sciurus niger
+2020-07-23 18:21:37,666 [INFO] Log: Iter 100: -6.62659 Top 335 fox squirrel, eastern fox squirrel, Sciurus niger
+2020-07-23 18:21:37,965 [INFO] Log: Iter 150: -6.62660 Top 335 fox squirrel, eastern fox squirrel, Sciurus niger
+2020-07-23 18:22:02,812 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/nn_utils.py:140: to_float (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `tf.cast` instead.
+2020-07-23 18:22:02,812 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/nn_utils.py:140: to_float (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `tf.cast` instead.
+2020-07-23 18:22:03,159 [WARNING] tensorflow: 
+The TensorFlow contrib module will not be included in TensorFlow 2.0.
+For more information, please see:
+  * https://github.com/tensorflow/community/blob/master/rfcs/20180907-contrib-sunset.md
+  * https://github.com/tensorflow/addons
+  * https://github.com/tensorflow/io (for I/O related ops)
+If you depend on functionality not listed there, please file an issue.
+
+2020-07-23 18:22:03,159 [WARNING] tensorflow: 
+The TensorFlow contrib module will not be included in TensorFlow 2.0.
+For more information, please see:
+  * https://github.com/tensorflow/community/blob/master/rfcs/20180907-contrib-sunset.md
+  * https://github.com/tensorflow/addons
+  * https://github.com/tensorflow/io (for I/O related ops)
+If you depend on functionality not listed there, please file an issue.
+
+2020-07-23 18:22:03,161 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/resnet_v2.py:425: The name tf.placeholder is deprecated. Please use tf.compat.v1.placeholder instead.
+
+2020-07-23 18:22:03,161 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/resnet_v2.py:425: The name tf.placeholder is deprecated. Please use tf.compat.v1.placeholder instead.
+
+2020-07-23 18:22:03,163 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/resnet_utils.py:253: The name tf.GraphKeys is deprecated. Please use tf.compat.v1.GraphKeys instead.
+
+2020-07-23 18:22:03,163 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/resnet_utils.py:253: The name tf.GraphKeys is deprecated. Please use tf.compat.v1.GraphKeys instead.
+
+2020-07-23 18:22:03,164 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/resnet_v2.py:191: The name tf.variable_scope is deprecated. Please use tf.compat.v1.variable_scope instead.
+
+2020-07-23 18:22:03,164 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/resnet_v2.py:191: The name tf.variable_scope is deprecated. Please use tf.compat.v1.variable_scope instead.
+
+2020-07-23 18:22:04,931 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/resnet_v2.py:471: The name tf.confusion_matrix is deprecated. Please use tf.math.confusion_matrix instead.
+
+2020-07-23 18:22:04,931 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/resnet_v2.py:471: The name tf.confusion_matrix is deprecated. Please use tf.math.confusion_matrix instead.
+
+2020-07-23 18:22:05,306 [INFO] Log: Learning rate 0.5 1000
+2020-07-23 18:22:05,310 [WARNING] tensorflow: From /home/ataha/envs/.tf_14/lib/python3.7/site-packages/tensorflow/python/keras/optimizer_v2/learning_rate_schedule.py:409: div (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Deprecated in favor of operator or tf.math.divide.
+2020-07-23 18:22:05,310 [WARNING] tensorflow: From /home/ataha/envs/.tf_14/lib/python3.7/site-packages/tensorflow/python/keras/optimizer_v2/learning_rate_schedule.py:409: div (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Deprecated in favor of operator or tf.math.divide.
+2020-07-23 18:22:05,313 [INFO] Log: Solving class specific optimization problem -- classification network
+2020-07-23 18:22:06,418 [INFO] Log: Model Path None
+2020-07-23 18:22:06,760 [WARNING] tensorflow: From /home/ataha/envs/.tf_14/lib/python3.7/site-packages/tensorflow/python/training/saver.py:1276: checkpoint_exists (from tensorflow.python.training.checkpoint_management) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use standard file APIs to check for files with this prefix.
+2020-07-23 18:22:06,760 [WARNING] tensorflow: From /home/ataha/envs/.tf_14/lib/python3.7/site-packages/tensorflow/python/training/saver.py:1276: checkpoint_exists (from tensorflow.python.training.checkpoint_management) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use standard file APIs to check for files with this prefix.
+2020-07-23 18:22:06,761 [INFO] tensorflow: Restoring parameters from /mnt/data/pretrained/resnet_v2_50/resnet_v2_50.ckpt
+2020-07-23 18:22:06,761 [INFO] tensorflow: Restoring parameters from /mnt/data/pretrained/resnet_v2_50/resnet_v2_50.ckpt
+2020-07-23 18:22:07,128 [INFO] Log: Model weights initialized from imageNet
+2020-07-23 18:22:08,558 [INFO] Log: Top K=1 ['fox squirrel, eastern fox squirrel, Sciurus niger']
+2020-07-23 18:22:08,871 [INFO] Log: Iter  0: -1.26338 Top 335 fox squirrel, eastern fox squirrel, Sciurus niger
+2020-07-23 18:22:09,171 [INFO] Log: Iter 50: -2.46983 Top 335 fox squirrel, eastern fox squirrel, Sciurus niger
+2020-07-23 18:22:09,489 [INFO] Log: Iter 100: -2.46987 Top 335 fox squirrel, eastern fox squirrel, Sciurus niger
+2020-07-23 18:22:27,591 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/nn_utils.py:140: to_float (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `tf.cast` instead.
+2020-07-23 18:22:27,591 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/nn_utils.py:140: to_float (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `tf.cast` instead.
+2020-07-23 18:22:27,938 [WARNING] tensorflow: 
+The TensorFlow contrib module will not be included in TensorFlow 2.0.
+For more information, please see:
+  * https://github.com/tensorflow/community/blob/master/rfcs/20180907-contrib-sunset.md
+  * https://github.com/tensorflow/addons
+  * https://github.com/tensorflow/io (for I/O related ops)
+If you depend on functionality not listed there, please file an issue.
+
+2020-07-23 18:22:27,938 [WARNING] tensorflow: 
+The TensorFlow contrib module will not be included in TensorFlow 2.0.
+For more information, please see:
+  * https://github.com/tensorflow/community/blob/master/rfcs/20180907-contrib-sunset.md
+  * https://github.com/tensorflow/addons
+  * https://github.com/tensorflow/io (for I/O related ops)
+If you depend on functionality not listed there, please file an issue.
+
+2020-07-23 18:22:27,940 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/resnet_v2.py:425: The name tf.placeholder is deprecated. Please use tf.compat.v1.placeholder instead.
+
+2020-07-23 18:22:27,940 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/resnet_v2.py:425: The name tf.placeholder is deprecated. Please use tf.compat.v1.placeholder instead.
+
+2020-07-23 18:22:27,942 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/resnet_utils.py:253: The name tf.GraphKeys is deprecated. Please use tf.compat.v1.GraphKeys instead.
+
+2020-07-23 18:22:27,942 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/resnet_utils.py:253: The name tf.GraphKeys is deprecated. Please use tf.compat.v1.GraphKeys instead.
+
+2020-07-23 18:22:27,942 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/resnet_v2.py:191: The name tf.variable_scope is deprecated. Please use tf.compat.v1.variable_scope instead.
+
+2020-07-23 18:22:27,942 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/resnet_v2.py:191: The name tf.variable_scope is deprecated. Please use tf.compat.v1.variable_scope instead.
+
+2020-07-23 18:22:29,648 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/attention_filter.py:10: MultivariateNormalFullCovariance.__init__ (from tensorflow.contrib.distributions.python.ops.mvn_full_covariance) is deprecated and will be removed after 2018-10-01.
+Instructions for updating:
+The TensorFlow Distributions library has moved to TensorFlow Probability (https://github.com/tensorflow/probability). You should update all references to use `tfp.distributions` instead of `tf.contrib.distributions`.
+2020-07-23 18:22:29,648 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/attention_filter.py:10: MultivariateNormalFullCovariance.__init__ (from tensorflow.contrib.distributions.python.ops.mvn_full_covariance) is deprecated and will be removed after 2018-10-01.
+Instructions for updating:
+The TensorFlow Distributions library has moved to TensorFlow Probability (https://github.com/tensorflow/probability). You should update all references to use `tfp.distributions` instead of `tf.contrib.distributions`.
+2020-07-23 18:22:29,649 [WARNING] tensorflow: From /home/ataha/envs/.tf_14/lib/python3.7/site-packages/tensorflow/contrib/distributions/python/ops/mvn_full_covariance.py:195: MultivariateNormalTriL.__init__ (from tensorflow.contrib.distributions.python.ops.mvn_tril) is deprecated and will be removed after 2018-10-01.
+Instructions for updating:
+The TensorFlow Distributions library has moved to TensorFlow Probability (https://github.com/tensorflow/probability). You should update all references to use `tfp.distributions` instead of `tf.contrib.distributions`.
+2020-07-23 18:22:29,649 [WARNING] tensorflow: From /home/ataha/envs/.tf_14/lib/python3.7/site-packages/tensorflow/contrib/distributions/python/ops/mvn_full_covariance.py:195: MultivariateNormalTriL.__init__ (from tensorflow.contrib.distributions.python.ops.mvn_tril) is deprecated and will be removed after 2018-10-01.
+Instructions for updating:
+The TensorFlow Distributions library has moved to TensorFlow Probability (https://github.com/tensorflow/probability). You should update all references to use `tfp.distributions` instead of `tf.contrib.distributions`.
+2020-07-23 18:22:29,654 [WARNING] tensorflow: From /home/ataha/envs/.tf_14/lib/python3.7/site-packages/tensorflow/contrib/distributions/python/ops/mvn_tril.py:222: MultivariateNormalLinearOperator.__init__ (from tensorflow.contrib.distributions.python.ops.mvn_linear_operator) is deprecated and will be removed after 2018-10-01.
+Instructions for updating:
+The TensorFlow Distributions library has moved to TensorFlow Probability (https://github.com/tensorflow/probability). You should update all references to use `tfp.distributions` instead of `tf.contrib.distributions`.
+2020-07-23 18:22:29,654 [WARNING] tensorflow: From /home/ataha/envs/.tf_14/lib/python3.7/site-packages/tensorflow/contrib/distributions/python/ops/mvn_tril.py:222: MultivariateNormalLinearOperator.__init__ (from tensorflow.contrib.distributions.python.ops.mvn_linear_operator) is deprecated and will be removed after 2018-10-01.
+Instructions for updating:
+The TensorFlow Distributions library has moved to TensorFlow Probability (https://github.com/tensorflow/probability). You should update all references to use `tfp.distributions` instead of `tf.contrib.distributions`.
+2020-07-23 18:22:29,661 [WARNING] tensorflow: From /home/ataha/envs/.tf_14/lib/python3.7/site-packages/tensorflow/contrib/distributions/python/ops/mvn_linear_operator.py:199: Normal.__init__ (from tensorflow.python.ops.distributions.normal) is deprecated and will be removed after 2019-01-01.
+Instructions for updating:
+The TensorFlow Distributions library has moved to TensorFlow Probability (https://github.com/tensorflow/probability). You should update all references to use `tfp.distributions` instead of `tf.distributions`.
+2020-07-23 18:22:29,661 [WARNING] tensorflow: From /home/ataha/envs/.tf_14/lib/python3.7/site-packages/tensorflow/contrib/distributions/python/ops/mvn_linear_operator.py:199: Normal.__init__ (from tensorflow.python.ops.distributions.normal) is deprecated and will be removed after 2019-01-01.
+Instructions for updating:
+The TensorFlow Distributions library has moved to TensorFlow Probability (https://github.com/tensorflow/probability). You should update all references to use `tfp.distributions` instead of `tf.distributions`.
+2020-07-23 18:22:29,663 [WARNING] tensorflow: From /home/ataha/envs/.tf_14/lib/python3.7/site-packages/tensorflow/python/ops/distributions/normal.py:160: Distribution.__init__ (from tensorflow.python.ops.distributions.distribution) is deprecated and will be removed after 2019-01-01.
+Instructions for updating:
+The TensorFlow Distributions library has moved to TensorFlow Probability (https://github.com/tensorflow/probability). You should update all references to use `tfp.distributions` instead of `tf.distributions`.
+2020-07-23 18:22:29,663 [WARNING] tensorflow: From /home/ataha/envs/.tf_14/lib/python3.7/site-packages/tensorflow/python/ops/distributions/normal.py:160: Distribution.__init__ (from tensorflow.python.ops.distributions.distribution) is deprecated and will be removed after 2019-01-01.
+Instructions for updating:
+The TensorFlow Distributions library has moved to TensorFlow Probability (https://github.com/tensorflow/probability). You should update all references to use `tfp.distributions` instead of `tf.distributions`.
+2020-07-23 18:22:29,663 [WARNING] tensorflow: From /home/ataha/envs/.tf_14/lib/python3.7/site-packages/tensorflow/contrib/distributions/python/ops/mvn_linear_operator.py:201: AffineLinearOperator.__init__ (from tensorflow.contrib.distributions.python.ops.bijectors.affine_linear_operator) is deprecated and will be removed after 2018-10-01.
+Instructions for updating:
+The TensorFlow Distributions library has moved to TensorFlow Probability (https://github.com/tensorflow/probability). You should update all references to use `tfp.distributions` instead of `tf.contrib.distributions`.
+2020-07-23 18:22:29,663 [WARNING] tensorflow: From /home/ataha/envs/.tf_14/lib/python3.7/site-packages/tensorflow/contrib/distributions/python/ops/mvn_linear_operator.py:201: AffineLinearOperator.__init__ (from tensorflow.contrib.distributions.python.ops.bijectors.affine_linear_operator) is deprecated and will be removed after 2018-10-01.
+Instructions for updating:
+The TensorFlow Distributions library has moved to TensorFlow Probability (https://github.com/tensorflow/probability). You should update all references to use `tfp.distributions` instead of `tf.contrib.distributions`.
+2020-07-23 18:22:29,664 [WARNING] tensorflow: From /home/ataha/envs/.tf_14/lib/python3.7/site-packages/tensorflow/contrib/distributions/python/ops/bijectors/affine_linear_operator.py:158: _DistributionShape.__init__ (from tensorflow.contrib.distributions.python.ops.shape) is deprecated and will be removed after 2018-10-01.
+Instructions for updating:
+The TensorFlow Distributions library has moved to TensorFlow Probability (https://github.com/tensorflow/probability). You should update all references to use `tfp.distributions` instead of `tf.contrib.distributions`.
+2020-07-23 18:22:29,664 [WARNING] tensorflow: From /home/ataha/envs/.tf_14/lib/python3.7/site-packages/tensorflow/contrib/distributions/python/ops/bijectors/affine_linear_operator.py:158: _DistributionShape.__init__ (from tensorflow.contrib.distributions.python.ops.shape) is deprecated and will be removed after 2018-10-01.
+Instructions for updating:
+The TensorFlow Distributions library has moved to TensorFlow Probability (https://github.com/tensorflow/probability). You should update all references to use `tfp.distributions` instead of `tf.contrib.distributions`.
+2020-07-23 18:22:29,667 [WARNING] tensorflow: From /home/ataha/envs/.tf_14/lib/python3.7/site-packages/tensorflow/contrib/distributions/python/ops/mvn_linear_operator.py:205: TransformedDistribution.__init__ (from tensorflow.python.ops.distributions.transformed_distribution) is deprecated and will be removed after 2019-01-01.
+Instructions for updating:
+The TensorFlow Distributions library has moved to TensorFlow Probability (https://github.com/tensorflow/probability). You should update all references to use `tfp.distributions` instead of `tf.distributions`.
+2020-07-23 18:22:29,667 [WARNING] tensorflow: From /home/ataha/envs/.tf_14/lib/python3.7/site-packages/tensorflow/contrib/distributions/python/ops/mvn_linear_operator.py:205: TransformedDistribution.__init__ (from tensorflow.python.ops.distributions.transformed_distribution) is deprecated and will be removed after 2019-01-01.
+Instructions for updating:
+The TensorFlow Distributions library has moved to TensorFlow Probability (https://github.com/tensorflow/probability). You should update all references to use `tfp.distributions` instead of `tf.distributions`.
+2020-07-23 18:22:29,777 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/resnet_v2.py:471: The name tf.confusion_matrix is deprecated. Please use tf.math.confusion_matrix instead.
+
+2020-07-23 18:22:29,777 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/resnet_v2.py:471: The name tf.confusion_matrix is deprecated. Please use tf.math.confusion_matrix instead.
+
+2020-07-23 18:22:30,187 [INFO] Log: Learning rate 0.5 1000
+2020-07-23 18:22:30,193 [WARNING] tensorflow: From /home/ataha/envs/.tf_14/lib/python3.7/site-packages/tensorflow/python/keras/optimizer_v2/learning_rate_schedule.py:409: div (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Deprecated in favor of operator or tf.math.divide.
+2020-07-23 18:22:30,193 [WARNING] tensorflow: From /home/ataha/envs/.tf_14/lib/python3.7/site-packages/tensorflow/python/keras/optimizer_v2/learning_rate_schedule.py:409: div (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Deprecated in favor of operator or tf.math.divide.
+2020-07-23 18:22:30,197 [INFO] Log: Solving class specific optimization problem -- classification network
+2020-07-23 18:22:30,285 [WARNING] tensorflow: From /home/ataha/envs/.tf_14/lib/python3.7/site-packages/tensorflow/python/ops/math_grad.py:175: setdiff1d (from tensorflow.python.ops.array_ops) is deprecated and will be removed after 2018-11-30.
+Instructions for updating:
+This op will be removed after the deprecation date. Please switch to tf.sets.difference().
+2020-07-23 18:22:30,285 [WARNING] tensorflow: From /home/ataha/envs/.tf_14/lib/python3.7/site-packages/tensorflow/python/ops/math_grad.py:175: setdiff1d (from tensorflow.python.ops.array_ops) is deprecated and will be removed after 2018-11-30.
+Instructions for updating:
+This op will be removed after the deprecation date. Please switch to tf.sets.difference().
+2020-07-23 18:22:31,401 [INFO] Log: Model Path None
+2020-07-23 18:22:31,750 [WARNING] tensorflow: From /home/ataha/envs/.tf_14/lib/python3.7/site-packages/tensorflow/python/training/saver.py:1276: checkpoint_exists (from tensorflow.python.training.checkpoint_management) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use standard file APIs to check for files with this prefix.
+2020-07-23 18:22:31,750 [WARNING] tensorflow: From /home/ataha/envs/.tf_14/lib/python3.7/site-packages/tensorflow/python/training/saver.py:1276: checkpoint_exists (from tensorflow.python.training.checkpoint_management) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use standard file APIs to check for files with this prefix.
+2020-07-23 18:22:31,752 [INFO] tensorflow: Restoring parameters from /mnt/data/pretrained/resnet_v2_50/resnet_v2_50.ckpt
+2020-07-23 18:22:31,752 [INFO] tensorflow: Restoring parameters from /mnt/data/pretrained/resnet_v2_50/resnet_v2_50.ckpt
+2020-07-23 18:22:32,152 [INFO] Log: Model weights initialized from imageNet
+2020-07-23 18:22:33,633 [INFO] Log: Top K=1 ['fox squirrel, eastern fox squirrel, Sciurus niger']
+2020-07-23 18:22:34,007 [INFO] Log: Iter  0: -0.96160 Top 335 fox squirrel, eastern fox squirrel, Sciurus niger
+2020-07-23 18:22:34,422 [INFO] Log: Iter 50: -1.42566 Top 335 fox squirrel, eastern fox squirrel, Sciurus niger
+2020-07-23 18:22:34,850 [INFO] Log: Iter 100: -1.42625 Top 335 fox squirrel, eastern fox squirrel, Sciurus niger
+2020-07-23 18:22:35,298 [INFO] Log: Iter 150: -1.42625 Top 335 fox squirrel, eastern fox squirrel, Sciurus niger
+2020-07-23 18:23:05,675 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/nn_utils.py:140: to_float (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `tf.cast` instead.
+2020-07-23 18:23:05,675 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/nn_utils.py:140: to_float (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `tf.cast` instead.
+2020-07-23 18:23:06,163 [WARNING] tensorflow: 
+The TensorFlow contrib module will not be included in TensorFlow 2.0.
+For more information, please see:
+  * https://github.com/tensorflow/community/blob/master/rfcs/20180907-contrib-sunset.md
+  * https://github.com/tensorflow/addons
+  * https://github.com/tensorflow/io (for I/O related ops)
+If you depend on functionality not listed there, please file an issue.
+
+2020-07-23 18:23:06,163 [WARNING] tensorflow: 
+The TensorFlow contrib module will not be included in TensorFlow 2.0.
+For more information, please see:
+  * https://github.com/tensorflow/community/blob/master/rfcs/20180907-contrib-sunset.md
+  * https://github.com/tensorflow/addons
+  * https://github.com/tensorflow/io (for I/O related ops)
+If you depend on functionality not listed there, please file an issue.
+
+2020-07-23 18:23:06,165 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/resnet_v2.py:425: The name tf.placeholder is deprecated. Please use tf.compat.v1.placeholder instead.
+
+2020-07-23 18:23:06,165 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/resnet_v2.py:425: The name tf.placeholder is deprecated. Please use tf.compat.v1.placeholder instead.
+
+2020-07-23 18:23:06,168 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/resnet_utils.py:253: The name tf.GraphKeys is deprecated. Please use tf.compat.v1.GraphKeys instead.
+
+2020-07-23 18:23:06,168 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/resnet_utils.py:253: The name tf.GraphKeys is deprecated. Please use tf.compat.v1.GraphKeys instead.
+
+2020-07-23 18:23:06,168 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/resnet_v2.py:191: The name tf.variable_scope is deprecated. Please use tf.compat.v1.variable_scope instead.
+
+2020-07-23 18:23:06,168 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/resnet_v2.py:191: The name tf.variable_scope is deprecated. Please use tf.compat.v1.variable_scope instead.
+
+2020-07-23 18:23:08,082 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/resnet_v2.py:471: The name tf.confusion_matrix is deprecated. Please use tf.math.confusion_matrix instead.
+
+2020-07-23 18:23:08,082 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/resnet_v2.py:471: The name tf.confusion_matrix is deprecated. Please use tf.math.confusion_matrix instead.
+
+2020-07-23 18:23:08,394 [INFO] Log: Learning rate 0.1 1000
+2020-07-23 18:23:08,402 [WARNING] tensorflow: From /home/ataha/envs/.tf_14/lib/python3.7/site-packages/tensorflow/python/keras/optimizer_v2/learning_rate_schedule.py:409: div (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Deprecated in favor of operator or tf.math.divide.
+2020-07-23 18:23:08,402 [WARNING] tensorflow: From /home/ataha/envs/.tf_14/lib/python3.7/site-packages/tensorflow/python/keras/optimizer_v2/learning_rate_schedule.py:409: div (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Deprecated in favor of operator or tf.math.divide.
+2020-07-23 18:23:08,406 [INFO] Log: Solving class specific optimization problem -- classification network
+2020-07-23 18:23:09,413 [INFO] Log: Model Path None
+2020-07-23 18:23:09,788 [WARNING] tensorflow: From /home/ataha/envs/.tf_14/lib/python3.7/site-packages/tensorflow/python/training/saver.py:1276: checkpoint_exists (from tensorflow.python.training.checkpoint_management) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use standard file APIs to check for files with this prefix.
+2020-07-23 18:23:09,788 [WARNING] tensorflow: From /home/ataha/envs/.tf_14/lib/python3.7/site-packages/tensorflow/python/training/saver.py:1276: checkpoint_exists (from tensorflow.python.training.checkpoint_management) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use standard file APIs to check for files with this prefix.
+2020-07-23 18:23:09,790 [INFO] tensorflow: Restoring parameters from /mnt/data/pretrained/resnet_v2_50/resnet_v2_50.ckpt
+2020-07-23 18:23:09,790 [INFO] tensorflow: Restoring parameters from /mnt/data/pretrained/resnet_v2_50/resnet_v2_50.ckpt
+2020-07-23 18:23:10,188 [INFO] Log: Model weights initialized from imageNet
+2020-07-23 18:23:11,313 [INFO] Log: Top K=1 ['fox squirrel, eastern fox squirrel, Sciurus niger']
+2020-07-23 18:23:11,741 [INFO] Log: Iter  0: -0.69826 Top 335 fox squirrel, eastern fox squirrel, Sciurus niger
+2020-07-23 18:23:12,051 [INFO] Log: Iter 50: -2.34034 Top 335 fox squirrel, eastern fox squirrel, Sciurus niger
+2020-07-23 18:23:12,335 [INFO] Log: Iter 100: -2.46134 Top 335 fox squirrel, eastern fox squirrel, Sciurus niger
+2020-07-23 18:23:12,650 [INFO] Log: Iter 150: -2.46846 Top 335 fox squirrel, eastern fox squirrel, Sciurus niger
+2020-07-23 18:23:12,962 [INFO] Log: Iter 200: -2.46907 Top 335 fox squirrel, eastern fox squirrel, Sciurus niger
+2020-07-23 18:23:13,261 [INFO] Log: Iter 250: -2.46933 Top 335 fox squirrel, eastern fox squirrel, Sciurus niger
+2020-07-23 18:23:13,584 [INFO] Log: Iter 300: -2.46947 Top 335 fox squirrel, eastern fox squirrel, Sciurus niger
+2020-07-23 18:23:13,887 [INFO] Log: Iter 350: -2.46956 Top 335 fox squirrel, eastern fox squirrel, Sciurus niger
+2020-07-23 18:23:14,180 [INFO] Log: Iter 400: -2.46962 Top 335 fox squirrel, eastern fox squirrel, Sciurus niger
+2020-07-23 18:23:14,477 [INFO] Log: Iter 450: -2.46966 Top 335 fox squirrel, eastern fox squirrel, Sciurus niger
+2020-07-23 18:23:14,761 [INFO] Log: Iter 500: -2.46970 Top 335 fox squirrel, eastern fox squirrel, Sciurus niger
+2020-07-23 18:23:15,064 [INFO] Log: Iter 550: -2.46972 Top 335 fox squirrel, eastern fox squirrel, Sciurus niger
+2020-07-23 18:23:15,362 [INFO] Log: Iter 600: -2.46974 Top 335 fox squirrel, eastern fox squirrel, Sciurus niger
+2020-07-23 18:23:15,653 [INFO] Log: Iter 650: -2.46975 Top 335 fox squirrel, eastern fox squirrel, Sciurus niger
+2020-07-23 18:23:15,936 [INFO] Log: Iter 700: -2.46976 Top 335 fox squirrel, eastern fox squirrel, Sciurus niger
+2020-07-23 18:23:16,237 [INFO] Log: Iter 750: -2.46977 Top 335 fox squirrel, eastern fox squirrel, Sciurus niger
+2020-07-23 18:23:16,545 [INFO] Log: Iter 800: -2.46978 Top 335 fox squirrel, eastern fox squirrel, Sciurus niger
+2020-07-23 18:23:16,832 [INFO] Log: Iter 850: -2.46979 Top 335 fox squirrel, eastern fox squirrel, Sciurus niger
+2020-07-23 18:23:17,118 [INFO] Log: Iter 900: -2.46979 Top 335 fox squirrel, eastern fox squirrel, Sciurus niger
+2020-07-23 18:23:17,398 [INFO] Log: Iter 950: -2.46979 Top 335 fox squirrel, eastern fox squirrel, Sciurus niger
+2020-07-23 18:25:11,668 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/nn_utils.py:140: to_float (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `tf.cast` instead.
+2020-07-23 18:25:11,668 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/nn_utils.py:140: to_float (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `tf.cast` instead.
+2020-07-23 18:25:12,054 [WARNING] tensorflow: 
+The TensorFlow contrib module will not be included in TensorFlow 2.0.
+For more information, please see:
+  * https://github.com/tensorflow/community/blob/master/rfcs/20180907-contrib-sunset.md
+  * https://github.com/tensorflow/addons
+  * https://github.com/tensorflow/io (for I/O related ops)
+If you depend on functionality not listed there, please file an issue.
+
+2020-07-23 18:25:12,054 [WARNING] tensorflow: 
+The TensorFlow contrib module will not be included in TensorFlow 2.0.
+For more information, please see:
+  * https://github.com/tensorflow/community/blob/master/rfcs/20180907-contrib-sunset.md
+  * https://github.com/tensorflow/addons
+  * https://github.com/tensorflow/io (for I/O related ops)
+If you depend on functionality not listed there, please file an issue.
+
+2020-07-23 18:25:12,056 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/resnet_v2.py:425: The name tf.placeholder is deprecated. Please use tf.compat.v1.placeholder instead.
+
+2020-07-23 18:25:12,056 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/resnet_v2.py:425: The name tf.placeholder is deprecated. Please use tf.compat.v1.placeholder instead.
+
+2020-07-23 18:25:12,059 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/resnet_utils.py:253: The name tf.GraphKeys is deprecated. Please use tf.compat.v1.GraphKeys instead.
+
+2020-07-23 18:25:12,059 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/resnet_utils.py:253: The name tf.GraphKeys is deprecated. Please use tf.compat.v1.GraphKeys instead.
+
+2020-07-23 18:25:12,059 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/resnet_v2.py:191: The name tf.variable_scope is deprecated. Please use tf.compat.v1.variable_scope instead.
+
+2020-07-23 18:25:12,059 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/resnet_v2.py:191: The name tf.variable_scope is deprecated. Please use tf.compat.v1.variable_scope instead.
+
+2020-07-23 18:25:14,145 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/resnet_v2.py:471: The name tf.confusion_matrix is deprecated. Please use tf.math.confusion_matrix instead.
+
+2020-07-23 18:25:14,145 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/resnet_v2.py:471: The name tf.confusion_matrix is deprecated. Please use tf.math.confusion_matrix instead.
+
+2020-07-23 18:25:14,493 [INFO] Log: Learning rate 0.1 1000
+2020-07-23 18:25:14,499 [WARNING] tensorflow: From /home/ataha/envs/.tf_14/lib/python3.7/site-packages/tensorflow/python/keras/optimizer_v2/learning_rate_schedule.py:409: div (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Deprecated in favor of operator or tf.math.divide.
+2020-07-23 18:25:14,499 [WARNING] tensorflow: From /home/ataha/envs/.tf_14/lib/python3.7/site-packages/tensorflow/python/keras/optimizer_v2/learning_rate_schedule.py:409: div (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Deprecated in favor of operator or tf.math.divide.
+2020-07-23 18:25:14,503 [INFO] Log: Solving class specific optimization problem -- classification network
+2020-07-23 18:25:15,482 [INFO] Log: Model Path None
+2020-07-23 18:25:15,837 [WARNING] tensorflow: From /home/ataha/envs/.tf_14/lib/python3.7/site-packages/tensorflow/python/training/saver.py:1276: checkpoint_exists (from tensorflow.python.training.checkpoint_management) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use standard file APIs to check for files with this prefix.
+2020-07-23 18:25:15,837 [WARNING] tensorflow: From /home/ataha/envs/.tf_14/lib/python3.7/site-packages/tensorflow/python/training/saver.py:1276: checkpoint_exists (from tensorflow.python.training.checkpoint_management) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use standard file APIs to check for files with this prefix.
+2020-07-23 18:25:15,839 [INFO] tensorflow: Restoring parameters from /mnt/data/pretrained/resnet_v2_50/resnet_v2_50.ckpt
+2020-07-23 18:25:15,839 [INFO] tensorflow: Restoring parameters from /mnt/data/pretrained/resnet_v2_50/resnet_v2_50.ckpt
+2020-07-23 18:25:16,233 [INFO] Log: Model weights initialized from imageNet
+2020-07-23 18:25:17,646 [INFO] Log: Top K=1 ['fox squirrel, eastern fox squirrel, Sciurus niger']
+2020-07-23 18:25:17,932 [INFO] Log: Iter  0: -1.08310 Top 335 fox squirrel, eastern fox squirrel, Sciurus niger
+2020-07-23 18:25:18,156 [INFO] Log: Iter 50: -6.61771 Top 335 fox squirrel, eastern fox squirrel, Sciurus niger
+2020-07-23 18:25:18,377 [INFO] Log: Iter 100: -6.62655 Top 335 fox squirrel, eastern fox squirrel, Sciurus niger
+2020-07-23 18:25:18,598 [INFO] Log: Iter 150: -6.62660 Top 335 fox squirrel, eastern fox squirrel, Sciurus niger
+2020-07-23 18:27:27,379 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/nn_utils.py:140: to_float (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `tf.cast` instead.
+2020-07-23 18:27:27,379 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/nn_utils.py:140: to_float (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `tf.cast` instead.
+2020-07-23 18:27:27,750 [WARNING] tensorflow: 
+The TensorFlow contrib module will not be included in TensorFlow 2.0.
+For more information, please see:
+  * https://github.com/tensorflow/community/blob/master/rfcs/20180907-contrib-sunset.md
+  * https://github.com/tensorflow/addons
+  * https://github.com/tensorflow/io (for I/O related ops)
+If you depend on functionality not listed there, please file an issue.
+
+2020-07-23 18:27:27,750 [WARNING] tensorflow: 
+The TensorFlow contrib module will not be included in TensorFlow 2.0.
+For more information, please see:
+  * https://github.com/tensorflow/community/blob/master/rfcs/20180907-contrib-sunset.md
+  * https://github.com/tensorflow/addons
+  * https://github.com/tensorflow/io (for I/O related ops)
+If you depend on functionality not listed there, please file an issue.
+
+2020-07-23 18:27:27,750 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/inception_utils.py:37: The name tf.GraphKeys is deprecated. Please use tf.compat.v1.GraphKeys instead.
+
+2020-07-23 18:27:27,750 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/inception_utils.py:37: The name tf.GraphKeys is deprecated. Please use tf.compat.v1.GraphKeys instead.
+
+2020-07-23 18:27:27,752 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/inception_v1.py:439: The name tf.placeholder is deprecated. Please use tf.compat.v1.placeholder instead.
+
+2020-07-23 18:27:27,752 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/inception_v1.py:439: The name tf.placeholder is deprecated. Please use tf.compat.v1.placeholder instead.
+
+2020-07-23 18:27:27,755 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/inception_v1.py:338: The name tf.variable_scope is deprecated. Please use tf.compat.v1.variable_scope instead.
+
+2020-07-23 18:27:27,755 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/inception_v1.py:338: The name tf.variable_scope is deprecated. Please use tf.compat.v1.variable_scope instead.
+
+2020-07-23 18:27:29,510 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/inception_v1.py:490: The name tf.confusion_matrix is deprecated. Please use tf.math.confusion_matrix instead.
+
+2020-07-23 18:27:29,510 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/inception_v1.py:490: The name tf.confusion_matrix is deprecated. Please use tf.math.confusion_matrix instead.
+
+2020-07-23 18:27:29,856 [INFO] Log: Learning rate 0.1 1000
+2020-07-23 18:27:29,862 [WARNING] tensorflow: From /home/ataha/envs/.tf_14/lib/python3.7/site-packages/tensorflow/python/keras/optimizer_v2/learning_rate_schedule.py:409: div (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Deprecated in favor of operator or tf.math.divide.
+2020-07-23 18:27:29,862 [WARNING] tensorflow: From /home/ataha/envs/.tf_14/lib/python3.7/site-packages/tensorflow/python/keras/optimizer_v2/learning_rate_schedule.py:409: div (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Deprecated in favor of operator or tf.math.divide.
+2020-07-23 18:27:29,868 [INFO] Log: Solving class specific optimization problem -- classification network
+2020-07-23 18:27:30,989 [INFO] Log: Model Path None
+2020-07-23 18:27:31,294 [WARNING] tensorflow: From /home/ataha/envs/.tf_14/lib/python3.7/site-packages/tensorflow/python/training/saver.py:1276: checkpoint_exists (from tensorflow.python.training.checkpoint_management) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use standard file APIs to check for files with this prefix.
+2020-07-23 18:27:31,294 [WARNING] tensorflow: From /home/ataha/envs/.tf_14/lib/python3.7/site-packages/tensorflow/python/training/saver.py:1276: checkpoint_exists (from tensorflow.python.training.checkpoint_management) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use standard file APIs to check for files with this prefix.
+2020-07-23 18:27:31,314 [INFO] tensorflow: Restoring parameters from /mnt/data/pretrained/inception_v1/inception_v1.ckpt
+2020-07-23 18:27:31,314 [INFO] tensorflow: Restoring parameters from /mnt/data/pretrained/inception_v1/inception_v1.ckpt
+2020-07-23 18:27:31,576 [INFO] Log: Model weights initialized from imageNet
+2020-07-23 18:27:32,984 [INFO] Log: Top K=1 ['fox squirrel, eastern fox squirrel, Sciurus niger']
+2020-07-23 18:27:33,288 [INFO] Log: Iter  0: -10.81558 Top 335 fox squirrel, eastern fox squirrel, Sciurus niger
+2020-07-23 18:27:33,482 [INFO] Log: Iter 50: -24.43303 Top 335 fox squirrel, eastern fox squirrel, Sciurus niger
+2020-07-23 18:27:33,698 [INFO] Log: Iter 100: -24.52810 Top 335 fox squirrel, eastern fox squirrel, Sciurus niger
+2020-07-23 18:27:33,913 [INFO] Log: Iter 150: -24.52845 Top 335 fox squirrel, eastern fox squirrel, Sciurus niger
+2020-07-23 18:27:34,126 [INFO] Log: Iter 200: -24.52845 Top 335 fox squirrel, eastern fox squirrel, Sciurus niger
+2020-07-23 18:27:54,349 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/nn_utils.py:140: to_float (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `tf.cast` instead.
+2020-07-23 18:27:54,349 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/nn_utils.py:140: to_float (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `tf.cast` instead.
+2020-07-23 18:27:54,715 [WARNING] tensorflow: 
+The TensorFlow contrib module will not be included in TensorFlow 2.0.
+For more information, please see:
+  * https://github.com/tensorflow/community/blob/master/rfcs/20180907-contrib-sunset.md
+  * https://github.com/tensorflow/addons
+  * https://github.com/tensorflow/io (for I/O related ops)
+If you depend on functionality not listed there, please file an issue.
+
+2020-07-23 18:27:54,715 [WARNING] tensorflow: 
+The TensorFlow contrib module will not be included in TensorFlow 2.0.
+For more information, please see:
+  * https://github.com/tensorflow/community/blob/master/rfcs/20180907-contrib-sunset.md
+  * https://github.com/tensorflow/addons
+  * https://github.com/tensorflow/io (for I/O related ops)
+If you depend on functionality not listed there, please file an issue.
+
+2020-07-23 18:27:54,716 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/inception_utils.py:37: The name tf.GraphKeys is deprecated. Please use tf.compat.v1.GraphKeys instead.
+
+2020-07-23 18:27:54,716 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/inception_utils.py:37: The name tf.GraphKeys is deprecated. Please use tf.compat.v1.GraphKeys instead.
+
+2020-07-23 18:27:54,717 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/inception_v1.py:439: The name tf.placeholder is deprecated. Please use tf.compat.v1.placeholder instead.
+
+2020-07-23 18:27:54,717 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/inception_v1.py:439: The name tf.placeholder is deprecated. Please use tf.compat.v1.placeholder instead.
+
+2020-07-23 18:27:54,719 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/inception_v1.py:338: The name tf.variable_scope is deprecated. Please use tf.compat.v1.variable_scope instead.
+
+2020-07-23 18:27:54,719 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/inception_v1.py:338: The name tf.variable_scope is deprecated. Please use tf.compat.v1.variable_scope instead.
+
+2020-07-23 18:27:56,464 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/inception_v1.py:490: The name tf.confusion_matrix is deprecated. Please use tf.math.confusion_matrix instead.
+
+2020-07-23 18:27:56,464 [WARNING] tensorflow: From /home/ataha/remote_code/constrained_attention_filter/nets/inception_v1.py:490: The name tf.confusion_matrix is deprecated. Please use tf.math.confusion_matrix instead.
+
+2020-07-23 18:27:56,828 [INFO] Log: Learning rate 0.5 1000
+2020-07-23 18:27:56,834 [WARNING] tensorflow: From /home/ataha/envs/.tf_14/lib/python3.7/site-packages/tensorflow/python/keras/optimizer_v2/learning_rate_schedule.py:409: div (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Deprecated in favor of operator or tf.math.divide.
+2020-07-23 18:27:56,834 [WARNING] tensorflow: From /home/ataha/envs/.tf_14/lib/python3.7/site-packages/tensorflow/python/keras/optimizer_v2/learning_rate_schedule.py:409: div (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Deprecated in favor of operator or tf.math.divide.
+2020-07-23 18:27:56,840 [INFO] Log: Solving class specific optimization problem -- classification network
+2020-07-23 18:27:57,886 [INFO] Log: Model Path None
+2020-07-23 18:27:58,204 [WARNING] tensorflow: From /home/ataha/envs/.tf_14/lib/python3.7/site-packages/tensorflow/python/training/saver.py:1276: checkpoint_exists (from tensorflow.python.training.checkpoint_management) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use standard file APIs to check for files with this prefix.
+2020-07-23 18:27:58,204 [WARNING] tensorflow: From /home/ataha/envs/.tf_14/lib/python3.7/site-packages/tensorflow/python/training/saver.py:1276: checkpoint_exists (from tensorflow.python.training.checkpoint_management) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use standard file APIs to check for files with this prefix.
+2020-07-23 18:27:58,204 [INFO] tensorflow: Restoring parameters from /mnt/data/pretrained/inception_v1/inception_v1.ckpt
+2020-07-23 18:27:58,204 [INFO] tensorflow: Restoring parameters from /mnt/data/pretrained/inception_v1/inception_v1.ckpt
+2020-07-23 18:27:58,447 [INFO] Log: Model weights initialized from imageNet
+2020-07-23 18:27:59,882 [INFO] Log: Top K=1 ['fox squirrel, eastern fox squirrel, Sciurus niger']
+2020-07-23 18:28:00,217 [INFO] Log: Iter  0: -10.53428 Top 335 fox squirrel, eastern fox squirrel, Sciurus niger
+2020-07-23 18:28:00,440 [INFO] Log: Iter 50: -24.52244 Top 335 fox squirrel, eastern fox squirrel, Sciurus niger
+2020-07-23 18:28:00,654 [INFO] Log: Iter 100: -24.52842 Top 335 fox squirrel, eastern fox squirrel, Sciurus niger
+2020-07-23 18:28:00,848 [INFO] Log: Iter 150: -24.52845 Top 335 fox squirrel, eastern fox squirrel, Sciurus niger

@@ -7,7 +7,7 @@
 ![](https://github.com/ahmdtaha/constrained_attention_filter/blob/master/gif/l2_caf.gif)
 
 ### TL;DR
-The are three core components of L2-CAF are
+L2-CAF has three core components:
 
 1- [TF filter](https://github.com/ahmdtaha/constrained_attention_filter/blob/035f0880baae6a12540dd0b4cc0830cef243c1af/nets/attention_filter.py#L19) This is the function that inserts L2-CAF inside a network (E.g, inside a [DenseNet](https://github.com/ahmdtaha/constrained_attention_filter/blob/035f0880baae6a12540dd0b4cc0830cef243c1af/nets/densenet161.py#L90)). L2-CAF is by default disabled; it is passive during classification.
 To active/de-activate L2-CAF (turn on and off the filter), I use the bool `atten_var_gate`. False deactivate L2-CAF, while True activates the filter.

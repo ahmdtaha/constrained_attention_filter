@@ -1,10 +1,7 @@
 # Constrained Attention Filter (CAF)
 (ECCV 2020) Tensorflow implementation of **A Generic Visualization Approach for Convolutional Neural Networks**
 
-[Paper](https://arxiv.org/abs/2007.09748) | 1 Min Video | 10 Mins Video
-
-### Teaser
-![](https://github.com/ahmdtaha/constrained_attention_filter/blob/master/gif/l2_caf.gif)
+[Paper](https://arxiv.org/abs/2007.09748) | [1 Min Video](https://youtu.be/W4xaKQlPEl0) | [10 Mins Video](https://youtu.be/Wpw3ewSvnFE)
 
 ### TL;DR
 L2-CAF has three core components:

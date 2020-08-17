@@ -44,7 +44,8 @@ The unit L2-Norm constrained attention filter has two operating modes.
 
     
 ### TODO LIST
-~~* Add Fast L2-CAF on DenseNet~~
+
+* ~~Add Fast L2-CAF on DenseNet~~
 * ~~Add InceptionNet and ResNet support~~
 * Document to use the code
 * Document the intermediate layer visualization
@@ -59,7 +60,7 @@ The unit L2-Norm constrained attention filter has two operating modes.
 We used the python code released by [ADL](https://github.com/junsukchoe/ADL) in Table 2. 
 Feel free to evaluate L2-CAF localization with other evaluation codes.
 * The softmax and Gaussian filters are released upon a reviewer request. The current Gaussian filter implementation is hard-coded to support only 7x7 attention filter.
- It is straight forward to extend it for any odd filter-size (e.g., 13x13). However, for even filter-size I think more changes are required. The last conv layer in standard architectures is 7x7. So the current configuration should cover most typical case-scenario.
+ It is straight forward to extend it for any odd filter-size (e.g., 13x13). However, for even filter-size I think more changes are required. The last conv layer in standard architectures is 7x7. So the current configuration should cover most case-scenarios.
  
 * I used modules of this code (especially the nets package) in multiple projects, so there is a lot of code that is not related to L2-CAF. I will iteratively clean the code. The TL;DR section, at the top of the readme file, highlights the core functions related to L2-CAF.
 

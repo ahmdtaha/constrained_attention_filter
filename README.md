@@ -7,8 +7,8 @@
 
 |                   | One Object | Two Objects |
 |-------------------|------------|-------------|
-|     Last Conv     |![](https://github.com/ahmdtaha/constrained_attention_filter/blob/master/gif/ILSVRC2012_val_00000003_cls_230_dense_block4_conv_block24_0.gif)|![](https://github.com/ahmdtaha/constrained_attention_filter/blob/master/gif/ILSVRC2012_val_00000003_cls_230_dense_block4_conv_block10_0.gif)|
-| Intermediate Conv |![](https://github.com/ahmdtaha/constrained_attention_filter/blob/master/gif/ILSVRC2012_val_00000021_cls_334_dense_block4_conv_block24_0.gif)|![](https://github.com/ahmdtaha/constrained_attention_filter/blob/master/gif/ILSVRC2012_val_00000021_cls_334_dense_block4_conv_block10_0.gif)|
+|     Last Conv     |![](https://github.com/ahmdtaha/constrained_attention_filter/blob/master/gif/ILSVRC2012_val_00000003_cls_230_dense_block4_conv_block24_0.gif)|![](https://github.com/ahmdtaha/constrained_attention_filter/blob/master/gif/ILSVRC2012_val_00000021_cls_334_dense_block4_conv_block24_0.gif)|
+|Intermediate Conv |![](https://github.com/ahmdtaha/constrained_attention_filter/blob/master/gif/ILSVRC2012_val_00000003_cls_230_dense_block4_conv_block10_0.gif)|![](https://github.com/ahmdtaha/constrained_attention_filter/blob/master/gif/ILSVRC2012_val_00000021_cls_334_dense_block4_conv_block10_0.gif)|
 
 ### TL;DR
 L2-CAF has three core components:

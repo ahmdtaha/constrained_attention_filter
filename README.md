@@ -70,3 +70,13 @@ Feel free to evaluate L2-CAF localization with other evaluation codes.
     * Add Fast L2-CAF on DenseNet 21 July 2020
     * Add Fast L2-CAF on Inception 22 July 2020
     * Add Fast L2-CAF on ResNet 23 July 2020
+
+### Citation
+```
+@article{taha2020generic,
+   title={A Generic Visualization Approach for Convolutional Neural Networks},
+   author={Taha, Ahmed and Yang, Xitong and Shrivastava, Abhinav and Davis, Larry},
+   journal={Proceedings of the European Conference on Computer Vision},
+   year={2020}
+ }
+```

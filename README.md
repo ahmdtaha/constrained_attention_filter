@@ -73,10 +73,10 @@ Feel free to evaluate L2-CAF localization with other evaluation codes.
 
 ### Citation
 ```
-@article{taha2020generic,
-   title={A Generic Visualization Approach for Convolutional Neural Networks},
-   author={Taha, Ahmed and Yang, Xitong and Shrivastava, Abhinav and Davis, Larry},
-   journal={Proceedings of the European Conference on Computer Vision},
-   year={2020}
- }
+@inproceedings{taha2020generic,
+title={A Generic Visualization Approach for Convolutional Neural Networks},
+author={Taha, Ahmed and Yang, Xitong and Shrivastava, Abhinav and Davis, Larry},
+booktitle={Proceedings of the European Conference on Computer Vision (ECCV)},
+year={2020}
+}
 ```

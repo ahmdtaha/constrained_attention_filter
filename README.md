@@ -1,5 +1,5 @@
 # Constrained Attention Filter (CAF)
-(ECCV 2020) Tensorflow implementation of **A Generic Visualization Approach for Convolutional Neural Networks**
+(ECCV2020) Tensorflow implementation of **A Generic Visualization Approach for Convolutional Neural Networks**
 
 An official [PyTorch implementation of L2-CAF](https://github.com/ahmdtaha/l2_caf_pytorch) is now available :star: :star: :star:
 
